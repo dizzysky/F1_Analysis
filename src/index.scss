@@ -1,5 +1,23 @@
 @import "./styles/example.scss"; 
 
-#main {
-    color: $color;
-}
+body {
+    font-family: Arial, sans-serif;
+    }
+
+    #race-nav {
+    width: 250px;
+    height: 100%;
+    overflow: auto;
+    border: 1px solid black;
+    }
+    #race-content {
+    margin-left: 210px;
+    padding: 20px;
+    }
+    nav a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    border: 1px solid black;
+    }
