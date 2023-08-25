@@ -19,18 +19,36 @@ body {
 }
 
 .logo {
-  width: 150px;
+  width: 300px;
   height: auto;
   margin-right: 15px; /* Space between the logo and text */
   margin-top: 65px; /* Move it a little down */
 }
 
 h1 {
-  font-family: "Futura", sans-serif; /* Use Futura font */
-  font-weight: bold; /* Bold lettering */
-  font-size: 24px; /* Adjust size as needed */
+  font-size: 3em; /* Default size */
+  font-family: "Futura", sans-serif;
+  font-weight: bold;
 }
 
+h2 {
+  font-size: 3em;
+  font-family: "Futura", sans-serif;
+  font-weight: bold;
+}
+
+/* Adjust the font size for larger screens */
+@media screen and (min-width: 768px) {
+  h1 {
+    font-size: 3em;
+  }
+}
+/* Adjust the font size for even larger screens */
+@media screen and (min-width: 1024px) {
+  h1 {
+    font-size: 6em;
+  }
+}
 #content-container {
   display: flex;
 }
@@ -39,9 +57,32 @@ h1 {
   width: 250px;
   height: 100%;
   overflow: auto;
-  border: 1px solid black;
   margin-left: 125px;
   margin-top: 40px;
+}
+
+.race-link {
+  position: relative;
+  display: inline-block;
+}
+.race-link:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.race-link:hover:after {
+  visibility: visible;
+  width: 100%;
+}
+.race-link.active:after {
+  visibility: visible;
+  width: 100%;
 }
 
 #race-content {
@@ -56,4 +97,10 @@ nav a {
   text-decoration: none;
   color: #000;
   border: 1px solid black;
+  transform: skewX(-15deg); /* Adjust the angle to your preference */
+}
+
+nav a {
+  border: 1px solid black;
+  border-radius: 5px; /* Adjust the value to achieve the desired rounding */
 }

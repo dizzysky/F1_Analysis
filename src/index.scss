@@ -1,5 +1,34 @@
 @import "./styles/example.scss"; 
 
+// .l-shape-border {
+//     width: 20px; /* Increase this value for a thicker vertical line */
+//     height: 100px; /* Increase this value for a longer horizontal line */
+//     border-right: 20px solid black; /* Adjust thickness of vertical line */
+//     border-top: 100px solid black; /* Adjust thickness of horizontal line */
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+// }
+
+// .l-shape-border:before, .l-shape-border:after {
+//     content: "";        /* Empty content for the pseudo-elements */
+//     position: absolute; /* Absolute positioning for the lines */
+//     background-color: #000; /* Color of the lines, change as needed */
+// }
+
+// .l-shape-border:before {
+//     width: 50px;        /* Width of the horizontal line */
+//     height: 5px;        /* Thickness of the horizontal line */
+//     top: 0;             /* Position at the top of the parent */
+// }
+
+// .l-shape-border:after {
+//     width: 5px;         /* Thickness of the vertical line */
+//     height: 50px;       /* Height of the vertical line */
+//     right: 0;           /* Position at the right of the parent */
+// }
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -13,17 +42,38 @@ body {
 }
 
 .logo {
-    width: 150px;
+    width: 300px;
     height: auto;
     margin-right: 15px; /* Space between the logo and text */
     margin-top: 65px; /* Move it a little down */
 }
 
 h1 {
-    font-family: 'Futura', sans-serif; /* Use Futura font */
-    font-weight: bold; /* Bold lettering */
-    font-size: 24px; /* Adjust size as needed */
+    font-size: 3em; /* Default size */
+    font-family: 'Futura', sans-serif;
+    font-weight: bold;
 }
+
+h2 {
+    font-size: 3em; 
+    font-family: 'Futura', sans-serif; 
+    font-weight: bold;
+}
+
+/* Adjust the font size for larger screens */
+@media screen and (min-width: 768px) {
+    h1 {
+        font-size: 3em;
+    }
+}
+
+/* Adjust the font size for even larger screens */
+@media screen and (min-width: 1024px) {
+    h1 {
+        font-size: 6em;
+    }
+}
+
 
 #content-container {
     display: flex;
@@ -33,10 +83,39 @@ h1 {
     width: 250px;
     height: 100%;
     overflow: auto;
-    border: 1px solid black;
+    // border: 1px solid black;
     margin-left: 125px;
     margin-top: 40px;
 }
+
+.race-link {
+    position: relative;
+    display: inline-block;
+
+    &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #000;  // Choose your color
+        visibility: hidden;
+        transition: all 0.3s ease-in-out;
+    }
+
+    &:hover:after {
+        visibility: visible;
+        width: 100%;
+    }
+
+
+    &.active:after {
+        visibility: visible;
+        width: 100%;
+    }
+}
+
 
 #race-content {
     flex-grow: 1;
@@ -50,4 +129,11 @@ nav a {
     text-decoration: none;
     color: #000;
     border: 1px solid black;
+    transform: skewX(-15deg); /* Adjust the angle to your preference */
+}
+
+
+nav a {
+    border: 1px solid black;
+    border-radius: 5px; /* Adjust the value to achieve the desired rounding */
 }

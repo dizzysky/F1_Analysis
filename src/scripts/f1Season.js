@@ -64,9 +64,18 @@ export default class F1Season {
         this.races.forEach((race, index) => { // use this.races instead of races
             const raceLink = document.createElement('a');
             raceLink.href = '#';
-            raceLink.textContent = `${race.raceName} - ${race.Circuit.circuitId}`; 
+            raceLink.className = 'race-link';
+            // raceLink.textContent = `${race.raceName} - ${race.Circuit.circuitId}`; 
+            raceLink.textContent = `${race.raceName}`; 
             raceLink.addEventListener('click', (e) => {
             e.preventDefault();
+
+            //removes 'active' class from all links when you click on something else
+            document.querySelectorAll('.race-link').forEach((link) => {
+                link.classList.remove('active');
+            });
+
+            raceLink.classList.add('active');
             this.fetchRaceDetails(index).then((details) => {
             this.populateMainContent(details);
             });
@@ -93,37 +102,51 @@ export default class F1Season {
     populateMainContent(details) {
         const mainContent = document.getElementById('race-content');
         const circuitImageURL = circuitImages[details.Circuit.circuitId];
-        let resultsHTML = ''; // Initialize resultsHTML variable
-
-        details.Results.slice(0,10).forEach((result, index) => {
-            let headshotHTML = ''; 
+        let tableRowsHTML = ''; // Initialize the table rows HTML variable
     
-            if (index < 3) {
-                const headshotURL = driverHeadshots[result.Driver.driverId]; 
-                headshotHTML = `<img src="${headshotURL}" alt="${result.Driver.givenName} ${result.Driver.familyName}" style="width: 100px;" />`;
-            }
-    
-            resultsHTML += `
-                <div>
-                    ${headshotHTML}
-                    <h3>${result.Driver.givenName} ${result.Driver.familyName} - ${result.Constructor.name}</h3>
-                    <p>Position: ${result.position}</p>
-                    <p>Time: ${result.Time ? result.Time.time : 'N/A'}</p>
-                    <a href="${result.Driver.url}">Driver Profile</a>
-                    <a href="${result.Constructor.url}">Constructor Profile</a>
-                </div>
+        details.Results.slice(0,5).forEach((result, index) => {
+            tableRowsHTML += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${result.Driver.givenName} ${result.Driver.familyName} - ${result.Constructor.name}</td>
+                    <td>${result.Time ? result.Time.time : 'N/A'}</td>
+                    <td><a href="${result.Driver.url}">Driver Profile</a></td>
+                    <td><a href="${result.Constructor.url}">Constructor Profile</a></td>
+                </tr>
             `;
         });
-
+    
         mainContent.innerHTML = `
-            <h1>${details.raceName}</h1>
-            <img src="${circuitImageURL}" width="300" alt="Track Configuration" /> <!-- Include the image here -->
+        <div style="display: flex; align-items: flex-start; font-family: Futura;">
+        <img src="${circuitImageURL}" width="300" alt="Track Configuration" style="margin-right: 20px;" /> <!-- Added margin-right -->
+        <div>
+            <h2>${details.raceName}</h2>
             <p>Circuit: ${details.Circuit.circuitName}</p>
             <p>Location: ${details.Circuit.Location.locality}, ${details.Circuit.Location.country}</p>
             <p>Date: ${details.date}</p>
-            ${resultsHTML} <!-- Append the results HTML here -->
-        `;
+            <table>
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Driver</th>
+                        <th>Constructor</th>
+                        <th>Time</th>
+                        <th>Profile Links</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${tableRowsHTML} <!-- Append the table rows here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+`;
+
     }
+    
+    
+    
+    
 
     initializeSeasonStats() {
         const mainContent = document.getElementById('race-content');
@@ -157,14 +180,12 @@ export default class F1Season {
                 }]
             },
             options: {
-                plugins: {
-                    legend: {
-                        display: false // This will hide the label
-                    },
-                    title: {
-                        display: true,
-                        text: 'Podium Wins by Constructor' // This will set the chart title
-                    }
+                title: {
+                    display: true,
+                    text: 'Podium Wins by Constructor',
+                    fontSize: 20, // Adjust the font size as needed
+                    fontColor: '#000', // You can set the color if you want
+                    fontStyle: 'bold' // Makes the title bold
                 },
                 responsive: true,
                 maintainAspectRatio: false // Allow the chart to fit the container without maintaining its aspect ratio
