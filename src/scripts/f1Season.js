@@ -19,14 +19,42 @@ const circuitImages = {
 }
 
 const driverHeadshots = {
-    "prost": "https://cdn.images.autosport.com/f1greatestdrivers/mug/1955022400.jpg"
+    "prost": "https://cdn.images.autosport.com/f1greatestdrivers/mug/1955022400.jpg",
+    "berger": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGKdVutc1doaeJGomCW6sXtWArB_b_s9ClSYME48lBNM5FJdWk5NKn0C9zxKhswt_jwpo&usqp=CAU",
+    "senna": "https://s.wsj.net/public/resources/images/B3-DW970_CAPTAI_FR_20190503142818.jpg"
+
 }
+
+
+const podiums1988 = [
+    { constructor: 'McLaren-Honda', podiums: 25 },
+    { constructor: 'Ferrari', podiums: 10 },
+    { constructor: 'Lotus-Honda', podiums: 3 },
+    { constructor: 'Benetton-Ford', podiums: 3 },
+    { constructor: 'Arrows-Megatron', podiums: 1 },
+    { constructor: 'March-Judd', podiums: 1 }
+];  
+
+
+const constructorColors = {
+    'McLaren-Honda': '#c20619',
+    'Ferrari': '#ff2800',
+    'Lotus-Honda': '#00A800',
+    'Arrows-Megatron': '#6a160b',
+    'March-Judd': '#9cd5e8'
+
+    // etc.
+};
+
+
+
 
 export default class F1Season {
     constructor(mainElement, races) {
         this.mainElement = mainElement;
         this.races = races; // Store the races array
         this.initializeRaces();
+        this.initializeSeasonStats();
     }
 
 
@@ -34,62 +62,116 @@ export default class F1Season {
     initializeRaces() {
         const raceNav = document.getElementById('race-nav');
         this.races.forEach((race, index) => { // use this.races instead of races
-          const raceLink = document.createElement('a');
-          raceLink.href = '#';
-          raceLink.textContent = `${race.raceName} - ${race.Circuit.circuitId}`; // use race.raceName and race.Circuit.circuitId
-          raceLink.addEventListener('click', (e) => {
+            const raceLink = document.createElement('a');
+            raceLink.href = '#';
+            raceLink.textContent = `${race.raceName} - ${race.Circuit.circuitId}`; 
+            raceLink.addEventListener('click', (e) => {
             e.preventDefault();
             this.fetchRaceDetails(index).then((details) => {
-              this.populateMainContent(details);
+            this.populateMainContent(details);
             });
-          });
-          raceNav.appendChild(raceLink);
         });
-      }
+            raceNav.appendChild(raceLink);
+        });
+    }
 
 
-      fetchRaceDetails(index) {
+    fetchRaceDetails(index) {
         const url = `http://ergast.com/api/f1/1988/${index + 1}/results.json`;
         return fetch(url)
-          .then(response => response.json())
-          .then(data => {
+            .then(response => response.json())
+            .then(data => {
             const raceDetails = data.MRData.RaceTable.Races[0];
             return raceDetails;
-          })
-          .catch(error => console.error("An error occurred:", error));
-      }
-      
+        })
+            .catch(error => console.error("An error occurred:", error));
+    }
 
 
 
-      populateMainContent(details) {
+
+    populateMainContent(details) {
         const mainContent = document.getElementById('race-content');
         const circuitImageURL = circuitImages[details.Circuit.circuitId];
         let resultsHTML = ''; // Initialize resultsHTML variable
-      
-        details.Results.slice(0,10).forEach(result => {
-          resultsHTML += `
-            <div>
-              <h3>${result.Driver.givenName} ${result.Driver.familyName} - ${result.Constructor.name}</h3>
-              <p>Position: ${result.position}</p>
-              <!-- <p>Points: ${result.points}</p> -->
-              <p>Time: ${result.Time ? result.Time.time : 'N/A'}</p>
-              <!-- <p>Status: ${result.status}</p> -->
-              <a href="${result.Driver.url}">Driver Profile</a>
-              <a href="${result.Constructor.url}">Constructor Profile</a>
-            </div>
-          `;
+
+        details.Results.slice(0,10).forEach((result, index) => {
+            let headshotHTML = ''; 
+    
+            if (index < 3) {
+                const headshotURL = driverHeadshots[result.Driver.driverId]; 
+                headshotHTML = `<img src="${headshotURL}" alt="${result.Driver.givenName} ${result.Driver.familyName}" style="width: 100px;" />`;
+            }
+    
+            resultsHTML += `
+                <div>
+                    ${headshotHTML}
+                    <h3>${result.Driver.givenName} ${result.Driver.familyName} - ${result.Constructor.name}</h3>
+                    <p>Position: ${result.position}</p>
+                    <p>Time: ${result.Time ? result.Time.time : 'N/A'}</p>
+                    <a href="${result.Driver.url}">Driver Profile</a>
+                    <a href="${result.Constructor.url}">Constructor Profile</a>
+                </div>
+            `;
         });
-      
+
         mainContent.innerHTML = `
-          <h1>${details.raceName}</h1>
-          <img src="${circuitImageURL}" width="300" alt="Track Configuration" /> <!-- Include the image here -->
-          <p>Circuit: ${details.Circuit.circuitName}</p>
-          <p>Location: ${details.Circuit.Location.locality}, ${details.Circuit.Location.country}</p>
-          <p>Date: ${details.date}</p>
-          ${resultsHTML} <!-- Append the results HTML here -->
+            <h1>${details.raceName}</h1>
+            <img src="${circuitImageURL}" width="300" alt="Track Configuration" /> <!-- Include the image here -->
+            <p>Circuit: ${details.Circuit.circuitName}</p>
+            <p>Location: ${details.Circuit.Location.locality}, ${details.Circuit.Location.country}</p>
+            <p>Date: ${details.date}</p>
+            ${resultsHTML} <!-- Append the results HTML here -->
         `;
-      }
-      
-      
+    }
+
+    initializeSeasonStats() {
+        const mainContent = document.getElementById('race-content');
+        // Clear existing content
+        mainContent.innerHTML = '';
+    
+        // Create a container for the chart
+        const chartContainer = document.createElement('div');
+        chartContainer.style.width = '500px'; // Set the width you want here
+        chartContainer.style.height = '300px'; // Set the height you want here
+        mainContent.appendChild(chartContainer); // Add the container to the main content area
+    
+        const canvas = chartContainer.appendChild(document.createElement('canvas'));
+
+        const podiumsData = podiums1988.map(item => item.podiums);
+        const constructorNames = podiums1988.map(item => item.constructor);
+        const backgroundColors = podiums1988.map(item => constructorColors[item.constructor]);
+
+    
+        const ctx = canvas.getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: podiums1988.map(item => item.constructor),
+                datasets: [{
+                    label: 'Podium Wins by Constructor',
+                    data: podiums1988.map(item => item.podiums),
+                    backgroundColor: backgroundColors, // Example color
+                    borderColor: 'rgba(0, 0, 0, 0.1)', // Example color
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false // This will hide the label
+                    },
+                    title: {
+                        display: true,
+                        text: 'Podium Wins by Constructor' // This will set the chart title
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false // Allow the chart to fit the container without maintaining its aspect ratio
+            }
+        });
+    }
+    
+    
+    
 }
