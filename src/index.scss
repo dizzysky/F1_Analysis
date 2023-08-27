@@ -1,34 +1,4 @@
 @import "./styles/example.scss"; 
-
-// .l-shape-border {
-//     width: 20px; /* Increase this value for a thicker vertical line */
-//     height: 100px; /* Increase this value for a longer horizontal line */
-//     border-right: 20px solid black; /* Adjust thickness of vertical line */
-//     border-top: 100px solid black; /* Adjust thickness of horizontal line */
-//     position: absolute;
-//     top: 0;
-//     right: 0;
-// }
-
-// .l-shape-border:before, .l-shape-border:after {
-//     content: "";        /* Empty content for the pseudo-elements */
-//     position: absolute; /* Absolute positioning for the lines */
-//     background-color: #000; /* Color of the lines, change as needed */
-// }
-
-// .l-shape-border:before {
-//     width: 50px;        /* Width of the horizontal line */
-//     height: 5px;        /* Thickness of the horizontal line */
-//     top: 0;             /* Position at the top of the parent */
-// }
-
-// .l-shape-border:after {
-//     width: 5px;         /* Thickness of the vertical line */
-//     height: 50px;       /* Height of the vertical line */
-//     right: 0;           /* Position at the right of the parent */
-// }
-
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -118,9 +88,25 @@ h2 {
 
 
 #race-content {
+    // border-right: 15px solid black;
+    // border-bottom: 15px solid black;
+    border-right: 15px solid black;
+    border-bottom: 15px solid black;
+    border-radius: 15px;
+    // border-top: 15px solid yellow;
+    // border-left: 15px solid yellow;
+    padding-right: 200px;
+    padding-bottom: 200px;
     flex-grow: 1;
-    margin-left: 210px;
+    margin-right: 200px;
+    margin-top: 50px;
     padding: 20px;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+
+    &.fade-out {
+        opacity: 0;
+    }
 }
 
 nav a {
@@ -128,12 +114,8 @@ nav a {
     padding: 10px;
     text-decoration: none;
     color: #000;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
     transform: skewX(-15deg); /* Adjust the angle to your preference */
-}
-
-
-nav a {
-    border: 1px solid black;
-    border-radius: 5px; /* Adjust the value to achieve the desired rounding */
+    border-radius: 5px;
 }

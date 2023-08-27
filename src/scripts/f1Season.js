@@ -1,3 +1,4 @@
+// import Chart from 'chart.js'; // Import Chart.js if not already imported
 const circuitImages = {
     "jacarepagua": "https://upload.wikimedia.org/wikipedia/commons/7/75/Aut%C3%B3dromo_Internacional_Nelson_Piquet_in_Bras%C3%ADlia.svg",
     "imola": "https://upload.wikimedia.org/wikipedia/commons/4/42/Imola.svg",
@@ -103,7 +104,12 @@ export default class F1Season {
         const mainContent = document.getElementById('race-content');
         const circuitImageURL = circuitImages[details.Circuit.circuitId];
         let tableRowsHTML = ''; // Initialize the table rows HTML variable
-    
+
+
+        mainContent.classList.add('fade-out');
+
+
+        setTimeout(() => {
         details.Results.slice(0,5).forEach((result, index) => {
             tableRowsHTML += `
                 <tr>
@@ -140,7 +146,9 @@ export default class F1Season {
             </table>
         </div>
     </div>
-`;
+    `
+    mainContent.classList.remove('fade-out');
+    ; }, 500);
 
     }
     
@@ -152,11 +160,16 @@ export default class F1Season {
         const mainContent = document.getElementById('race-content');
         // Clear existing content
         mainContent.innerHTML = '';
+
+        //start fading out
+        mainContent.classList.add('fade-out');
+
+        setTimeout(() => {
     
         // Create a container for the chart
         const chartContainer = document.createElement('div');
-        chartContainer.style.width = '500px'; // Set the width you want here
-        chartContainer.style.height = '300px'; // Set the height you want here
+        chartContainer.style.width = '350px'; // Set the width you want here
+        chartContainer.style.height = '200px'; // Set the height you want here
         mainContent.appendChild(chartContainer); // Add the container to the main content area
     
         const canvas = chartContainer.appendChild(document.createElement('canvas'));
@@ -191,8 +204,12 @@ export default class F1Season {
                 maintainAspectRatio: false // Allow the chart to fit the container without maintaining its aspect ratio
             }
         });
+        mainContent.classList.remove('fade-out');
+    }, 500);
     }
     
-    
+
+
+
     
 }

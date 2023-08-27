@@ -86,9 +86,20 @@ h2 {
 }
 
 #race-content {
+  border-right: 15px solid black;
+  border-bottom: 15px solid black;
+  border-radius: 15px;
+  padding-right: 200px;
+  padding-bottom: 200px;
   flex-grow: 1;
-  margin-left: 210px;
+  margin-right: 200px;
+  margin-top: 50px;
   padding: 20px;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+#race-content.fade-out {
+  opacity: 0;
 }
 
 nav a {
@@ -96,11 +107,8 @@ nav a {
   padding: 10px;
   text-decoration: none;
   color: #000;
-  border: 1px solid black;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
   transform: skewX(-15deg); /* Adjust the angle to your preference */
-}
-
-nav a {
-  border: 1px solid black;
-  border-radius: 5px; /* Adjust the value to achieve the desired rounding */
+  border-radius: 5px;
 }
