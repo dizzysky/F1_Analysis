@@ -56,6 +56,7 @@ export default class F1Season {
         this.races = races; // Store the races array
         this.initializeRaces();
         this.initializeSeasonStats();
+        this.initializeRadarChart();
     }
 
 
@@ -206,6 +207,39 @@ export default class F1Season {
         });
         mainContent.classList.remove('fade-out');
     }, 500);
+    }//end initializeSeasonStats
+
+
+    initializeRadarChart() {
+        // Fetch additional data from Ergast API
+        fetch("http://ergast.com/api/f1/1988/constructors.json")
+            .then(response => response.json())
+            .then(radarData => {  // <-- Renamed to radarData to avoid conflict
+                const ctx = document.getElementById("myRadarChart").getContext("2d");
+                
+                // Prepare your data and labels here
+                const labels = ["Metric 1", "Metric 2"]; // Replace these with actual metrics
+                const chartData = {  // <-- You can also rename this if you want
+                    labels: labels,
+                    datasets: [{
+                        label: 'My dataset',
+                        data: [65, 59], // Replace these with actual data
+                    }]
+                };
+    
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: chartData,  // <-- Using chartData here
+                    options: {
+                        scales: {
+                            r: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error("An error occurred while fetching radar chart data:", error));
     }
     
 
