@@ -100,11 +100,16 @@ h1, h2 {
     }
 }
 
-.fade-out {
+.fade-content.fade-out {
     opacity: 0 !important;
     transition: opacity 0.5s ease-in-out !important;
+    visibility: hidden;
 }
-
+.fade-content {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    visibility: visible;
+}
 // Nav links
 nav a {
     display: block;
@@ -143,3 +148,9 @@ nav a {
     background-color: #f2d335;
     color: black;
 }
+
+
+#hidden-image-container {
+    margin-top: 200px; /* Adjust as needed */
+  }
+  

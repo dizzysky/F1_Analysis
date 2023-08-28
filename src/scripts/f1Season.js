@@ -79,7 +79,7 @@ export default class F1Season {
 
 
     populateMainContent(details) {
-        const mainContent = document.getElementById('race-content');
+        const mainContent = document.querySelector('#race-content .fade-content');
         const circuitImageURL = circuitImages[details.Circuit.circuitId];
         let tableRowsHTML = ''; // Initialize the table rows HTML variable
 
@@ -121,7 +121,7 @@ export default class F1Season {
     }
 
     initializeSeasonStats() {
-        const mainContent = document.getElementById('race-content');
+        const mainContent = document.querySelector('#race-content .fade-content');
         // Clear existing content
         mainContent.innerHTML = '';
 
