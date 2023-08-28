@@ -15,35 +15,20 @@ body {
 #header {
   display: flex;
   align-items: center;
-  padding-left: 100px; /* Move it a little more to the right */
+  padding-left: 100px;
 }
 
 .logo {
   width: 300px;
   height: auto;
-  margin-right: 15px; /* Space between the logo and text */
-  margin-top: 65px; /* Move it a little down */
+  margin: 65px 15px 0 0;
 }
 
-h1 {
-  font-size: 3em; /* Default size */
-  font-family: "Futura", sans-serif;
-  font-weight: bold;
-}
-
-h2 {
+h1, h2 {
   font-size: 3em;
-  font-family: "Futura", sans-serif;
   font-weight: bold;
 }
 
-/* Adjust the font size for larger screens */
-@media screen and (min-width: 768px) {
-  h1 {
-    font-size: 3em;
-  }
-}
-/* Adjust the font size for even larger screens */
 @media screen and (min-width: 1024px) {
   h1 {
     font-size: 6em;
@@ -57,8 +42,8 @@ h2 {
   width: 250px;
   height: 100%;
   overflow: auto;
-  margin-left: 25px;
-  margin-top: 40px;
+  margin: 40px 0 0 25px;
+  margin-left: 120px;
 }
 
 .race-link {
@@ -76,16 +61,12 @@ h2 {
   visibility: hidden;
   transition: all 0.3s ease-in-out;
 }
-.race-link:hover:after {
+.race-link:hover:after, .race-link.active:after {
   visibility: visible;
   width: 100%;
 }
 .race-link.active {
   font-weight: bold;
-}
-.race-link.active:after {
-  visibility: visible;
-  width: 100%;
 }
 
 #race-content {
@@ -93,40 +74,41 @@ h2 {
   border-right: 10px solid black;
   border-bottom: 10px solid black;
   border-radius: 15px;
-  padding-left: 100px;
-  padding-bottom: 225px;
+  padding: 0 0 225px 100px;
   flex-grow: 1;
-  margin-right: 200px;
-  margin-top: 50px;
-  margin-left: 100px;
+  margin: 50px 200px 0 100px;
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
 }
-
 #race-content::before {
   content: "";
   position: absolute;
   right: 0;
   bottom: 0;
-  width: calc(100% - 5px); /* 5px less than the full width */
-  height: calc(100% - 5px); /* 5px less than the full height */
+  width: calc(100% - 5px);
+  height: calc(100% - 5px);
   border-bottom: 2px solid #f3d333;
   border-right: 2px solid #f3d333;
-  z-index: -1; /* Place it below the main element */
+  z-index: -1;
+}
+
+.fade-out {
+  opacity: 0 !important;
+  transition: opacity 0.5s ease-in-out !important;
 }
 
 nav a {
   display: block;
   margin-top: 5px;
   padding: 10px;
-  width: 200px; /* or whatever width you want */
+  width: 200px;
   text-decoration: none;
   color: #000;
   border-bottom: 1px solid black;
   border-right: 1px solid black;
-  transform: skewX(-15deg);
   border-radius: 5px;
-  text-align: center; /* to center align the text */
+  transform: skewX(-15deg);
+  text-align: center;
 }
 
 .styled-table {
@@ -148,6 +130,6 @@ nav a {
 }
 
 .styled-table th {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #f2d335;
+  color: black;
 }
