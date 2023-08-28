@@ -113,3 +113,26 @@ nav a {
   border-radius: 5px;
   text-align: center; /* to center align the text */
 }
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.styled-table, .styled-table th, .styled-table td {
+  border: 1px solid black;
+}
+
+.styled-table th, .styled-table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.styled-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.styled-table th {
+  background-color: #4CAF50;
+  color: white;
+}

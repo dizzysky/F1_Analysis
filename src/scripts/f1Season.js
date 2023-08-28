@@ -1,4 +1,4 @@
-import { circuitImages, driverHeadshots, podiums1988, constructorColors } from "./dataset";
+import { circuitImages, driverHeadshots, podiums1988, constructorColors, countryFlags } from "./dataset";
 
 
 const fetchData = async (url) => {
@@ -23,12 +23,14 @@ const createLinkElement = (text, className, clickHandler) => {
 const createRaceRowHTML = (result, index) => `
     <tr>
         <td>${index + 1}</td>
-        <td>${result.Driver.givenName} ${result.Driver.familyName} - ${result.Constructor.name}</td>
+        <td>${result.Driver.givenName} ${result.Driver.familyName}</td>
+        <td>${result.Constructor.name}</td>  <!-- Added this cell -->
         <td>${result.Time ? result.Time.time : 'N/A'}</td>
         <td><a href="${result.Driver.url}">Driver Profile</a></td>
-        <td><a href="${result.Constructor.url}">Constructor Profile</a></td>
-        </tr>
+        <!-- <td><a href="${result.Constructor.url}">Constructor Profile</a></td> -->
+    </tr>
 `;
+
 
 export default class F1Season {
     constructor(mainElement, races) {
@@ -43,13 +45,13 @@ export default class F1Season {
         const url = `http://ergast.com/api/f1/1988/${index + 1}/results.json`;
         const data = await fetchData(url);
         return data?.MRData?.RaceTable?.Races[0] ?? null;
-      }
+    }
     
-      initializeRaces() {
+    initializeRaces() {
         const raceNav = document.getElementById('race-nav');
         this.races.forEach((race, index) => {
-          const { raceName } = race;
-          const raceLink = createLinkElement(raceName, 'race-link', async (e) => {
+            const { raceName } = race;
+            const raceLink = createLinkElement(raceName, 'race-link', async (e) => {
             e.preventDefault();
             // Active link handling
             document.querySelectorAll('.race-link').forEach((link) => link.classList.remove('active'));
@@ -57,11 +59,11 @@ export default class F1Season {
     
             const details = await this.fetchRaceDetails(index);
             this.populateMainContent(details);
-          });
+            });
     
-          raceNav.appendChild(raceLink);
+            raceNav.appendChild(raceLink);
         });
-      }
+    }
 
 
     populateMainContent(details) {
@@ -78,13 +80,13 @@ export default class F1Season {
 
         mainContent.innerHTML = `
         <div style="display: flex; align-items: flex-start; font-family: Futura;">
-        <img src="${circuitImageURL}" width="300" alt="Track Configuration" style="margin-right: 20px;" /> <!-- Added margin-right -->
+        <img src="${circuitImageURL}" width="300" alt="Track Configuration" style="margin-right: 75px;" /> <!-- Added margin-right -->
         <div>
-            <h2>${details.raceName}</h2>
+            <h2 style="margin-top: 0;">${details.raceName}</h2>
             <p>Circuit: ${details.Circuit.circuitName}</p>
             <p>Location: ${details.Circuit.Location.locality}, ${details.Circuit.Location.country}</p>
             <p>Date: ${details.date}</p>
-            <table>
+            <table class="styled-table">
                 <thead>
                     <tr>
                         <th>Position</th>

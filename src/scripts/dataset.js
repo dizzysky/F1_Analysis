@@ -43,3 +43,23 @@ export const constructorColors = {
     'Arrows-Megatron': '#6a160b',
     'March-Judd': '#9cd5e8'
 };
+
+
+export const countryFlags = {
+    'jacarepagua' : "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Flag_of_Brazil.svg/1200px-Flag_of_Brazil.svg.png", 
+    'imola' : "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/800px-Flag_of_Italy.svg.png",
+    'monaco' : "https://cdn.britannica.com/82/682-004-F0B47FCB/Flag-France.jpg", 
+    'rodriguez' : "https://cdn.britannica.com/73/2573-004-29818847/Flag-Mexico.jpg",
+    'villeneuve' : "https://cdn.britannica.com/68/7068-004-7848FEB4/Flag-Canada.jpg", 
+    'detroit' : "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png",
+    'ricard' : "https://cdn.britannica.com/82/682-004-F0B47FCB/Flag-France.jpg",
+    'silverstone' : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/1200px-Flag_of_the_United_Kingdom_%281-2%29.svg.png",
+    'hockenheimring' : "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/1200px-Flag_of_Germany.svg.png",
+    'hungaroring' : "https://cdn.britannica.com/55/1455-004-5897143C/Flag-Hungary.jpg",
+    'spa' : "https://cdn.britannica.com/08/6408-004-405E272F/Flag-Belgium.jpg",
+    'monza' : "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/800px-Flag_of_Italy.svg.png",
+    'estoril' : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/255px-Flag_of_Portugal.svg.png",
+    'jerez' : "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Bandera_de_Espa%C3%B1a.svg/1200px-Bandera_de_Espa%C3%B1a.svg.png",
+    'suzuka' : "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png", 
+    'adelaide' : "https://cdn.britannica.com/78/6078-004-77AF7322/Flag-Australia.jpg"
+};
