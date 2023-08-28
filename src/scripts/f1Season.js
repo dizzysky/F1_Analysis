@@ -50,7 +50,8 @@ export default class F1Season {
     initializeRaces() {
         const raceNav = document.getElementById('race-nav');
         this.races.forEach((race, index) => {
-            const { raceName } = race;
+            const { raceName, Circuit } = race;
+            const flagURL = countryFlags[Circuit.circuitId];
             const raceLink = createLinkElement(raceName, 'race-link', async (e) => {
             e.preventDefault();
             // Active link handling
@@ -60,6 +61,17 @@ export default class F1Season {
             const details = await this.fetchRaceDetails(index);
             this.populateMainContent(details);
             });
+            
+            // Create flag image element if URL exists
+        if (flagURL) {
+            const flagImg = document.createElement('img');
+            flagImg.src = flagURL;
+            flagImg.width = 20;
+            flagImg.alt = `Flag of ${Circuit.Location.country}`;
+            flagImg.style.marginLeft = "10px";
+            raceLink.appendChild(flagImg);
+        }
+
     
             raceNav.appendChild(raceLink);
         });
