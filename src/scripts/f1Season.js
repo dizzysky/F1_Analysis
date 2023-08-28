@@ -1,5 +1,35 @@
 import { circuitImages, driverHeadshots, podiums1988, constructorColors } from "./dataset";
 
+
+const fetchData = async (url) => {
+    try {
+        const response = await fetch(url);
+        return await response.json();
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return null;
+    }
+};
+
+const createLinkElement = (text, className, clickHandler) => {
+    const link = document.createElement('a');
+    link.href = '#';
+    link.className = className;
+    link.textContent = text;
+    link.addEventListener('click', clickHandler);
+    return link;
+};
+
+const createRaceRowHTML = (result, index) => `
+    <tr>
+        <td>${index + 1}</td>
+        <td>${result.Driver.givenName} ${result.Driver.familyName} - ${result.Constructor.name}</td>
+        <td>${result.Time ? result.Time.time : 'N/A'}</td>
+        <td><a href="${result.Driver.url}">Driver Profile</a></td>
+        <td><a href="${result.Constructor.url}">Constructor Profile</a></td>
+        </tr>
+`;
+
 export default class F1Season {
     constructor(mainElement, races) {
         this.mainElement = mainElement;
@@ -9,44 +39,29 @@ export default class F1Season {
         this.initializeScatterPlot();  // Add this line here
     }
 
-    initializeRaces() {
-        const raceNav = document.getElementById('race-nav');
-        this.races.forEach((race, index) => { // use this.races instead of races
-            const raceLink = document.createElement('a');
-            raceLink.href = '#';
-            raceLink.className = 'race-link';
-            // raceLink.textContent = `${race.raceName} - ${race.Circuit.circuitId}`; 
-            raceLink.textContent = `${race.raceName}`; 
-            raceLink.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            //removes 'active' class from all links when you click on something else
-            document.querySelectorAll('.race-link').forEach((link) => {
-                link.classList.remove('active');
-            });
-
-            raceLink.classList.add('active');
-            this.fetchRaceDetails(index).then((details) => {
-            this.populateMainContent(details);
-            });
-        });
-            raceNav.appendChild(raceLink);
-        });
-    }
-
-
-    fetchRaceDetails(index) {
+    async fetchRaceDetails(index) {
         const url = `http://ergast.com/api/f1/1988/${index + 1}/results.json`;
-        return fetch(url)
-            .then(response => response.json())
-            .then(data => {
-            const raceDetails = data.MRData.RaceTable.Races[0];
-            return raceDetails;
-        })
-            .catch(error => console.error("An error occurred:", error));
-    }
-
-
+        const data = await fetchData(url);
+        return data?.MRData?.RaceTable?.Races[0] ?? null;
+      }
+    
+      initializeRaces() {
+        const raceNav = document.getElementById('race-nav');
+        this.races.forEach((race, index) => {
+          const { raceName } = race;
+          const raceLink = createLinkElement(raceName, 'race-link', async (e) => {
+            e.preventDefault();
+            // Active link handling
+            document.querySelectorAll('.race-link').forEach((link) => link.classList.remove('active'));
+            raceLink.classList.add('active');
+    
+            const details = await this.fetchRaceDetails(index);
+            this.populateMainContent(details);
+          });
+    
+          raceNav.appendChild(raceLink);
+        });
+      }
 
 
     populateMainContent(details) {
@@ -59,18 +74,8 @@ export default class F1Season {
 
 
         setTimeout(() => {
-        details.Results.slice(0,5).forEach((result, index) => {
-            tableRowsHTML += `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${result.Driver.givenName} ${result.Driver.familyName} - ${result.Constructor.name}</td>
-                    <td>${result.Time ? result.Time.time : 'N/A'}</td>
-                    <td><a href="${result.Driver.url}">Driver Profile</a></td>
-                    <td><a href="${result.Constructor.url}">Constructor Profile</a></td>
-                </tr>
-            `;
-        });
-    
+            let tableRowsHTML = details.Results.slice(0,5).map(createRaceRowHTML).join('');
+
         mainContent.innerHTML = `
         <div style="display: flex; align-items: flex-start; font-family: Futura;">
         <img src="${circuitImageURL}" width="300" alt="Track Configuration" style="margin-right: 20px;" /> <!-- Added margin-right -->
@@ -100,10 +105,6 @@ export default class F1Season {
     ; }, 500);
 
     }
-    
-    
-    
-    
 
     initializeSeasonStats() {
         const mainContent = document.getElementById('race-content');
