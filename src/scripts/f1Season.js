@@ -42,7 +42,7 @@ export default class F1Season {
     }
 
     async fetchRaceDetails(index) {
-        const url = `http://ergast.com/api/f1/1988/${index + 1}/results.json`;
+        const url = `https://ergast.com/api/f1/1988/${index + 1}/results.json`;
         const data = await fetchData(url);
         return data?.MRData?.RaceTable?.Races[0] ?? null;
     }
