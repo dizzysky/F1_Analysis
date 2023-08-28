@@ -75,6 +75,28 @@ h1, h2 {
     }
 }
 
+// Nav links
+nav a {
+    display: block;
+    margin-top: 5px;
+    padding: 10px;
+    width: 200px;
+    text-decoration: none;
+    color: #000;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 5px;
+    transform: skewX(-15deg);
+    text-align: center;
+
+
+    transition: border-bottom 0.3s ease-in-out; // New line
+}
+
+.bold-border {
+    border-right: 20px solid black;
+}
+
 // Race content
 #race-content {
     position: relative;
@@ -110,20 +132,8 @@ h1, h2 {
     transition: opacity 0.5s ease-in-out;
     visibility: visible;
 }
-// Nav links
-nav a {
-    display: block;
-    margin-top: 5px;
-    padding: 10px;
-    width: 200px;
-    text-decoration: none;
-    color: #000;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    border-radius: 5px;
-    transform: skewX(-15deg);
-    text-align: center;
-}
+
+
 
 // Results Table
 .styled-table {

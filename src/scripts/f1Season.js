@@ -61,6 +61,15 @@ export default class F1Season {
             const details = await this.fetchRaceDetails(index);
             this.populateMainContent(details);
             });
+
+
+
+             // Add transitionend event listener
+        raceLink.addEventListener('transitionend', (e) => {
+            if (e.propertyName === 'border-bottom' || e.propertyName === 'border-bottom') {
+                raceLink.classList.add('bold-border');
+            }
+        });
             
             // Create flag image element if URL exists
         if (flagURL) {
