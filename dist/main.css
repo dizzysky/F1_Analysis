@@ -144,3 +144,7 @@ nav a {
 #hidden-image-container {
   margin-top: 200px; /* Adjust as needed */
 }
+
+.element-class {
+  visibility: hidden;
+}

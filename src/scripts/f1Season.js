@@ -38,7 +38,7 @@ export default class F1Season {
         this.races = races; // Store the races array
         this.initializeRaces();
         this.initializeSeasonStats();
-        this.initializeScatterPlot();  // Add this line here
+        // this.initializeScatterPlot();  // Add this line here
     }
 
     async fetchRaceDetails(index) {
@@ -173,38 +173,38 @@ export default class F1Season {
     }//end initializeSeasonStats
 
 
-    initializeScatterPlot() {
-        // Replace "your-real-api-url-here" with your actual API endpoint
-        fetch("your-real-api-url-here")
-            .then(response => response.json())
-            .then(scatterData => {
-                // Assuming scatterData is an array of objects with x and y properties
-                const ctx = document.getElementById("myScatterChart").getContext("2d");
+    // initializeScatterPlot() {
+    //     // Replace "your-real-api-url-here" with your actual API endpoint
+    //     fetch("your-real-api-url-here")
+    //         .then(response => response.json())
+    //         .then(scatterData => {
+    //             // Assuming scatterData is an array of objects with x and y properties
+    //             const ctx = document.getElementById("myScatterChart").getContext("2d");
         
-                new Chart(ctx, {
-                    type: 'scatter',
-                    data: {
-                        datasets: [{
-                            label: 'My Scatter Dataset',
-                            data: scatterData.map(item => ({ x: item.x, y: item.y })),
-                            backgroundColor: 'rgba(0, 123, 255, 0.5)'
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            x: {
-                                beginAtZero: true
-                            },
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            })
-            .catch(error => {
-                console.error("An error occurred:", error);
-                // You can initialize the chart with empty or fallback data here if you want
-            });
-    }
+    //             new Chart(ctx, {
+    //                 type: 'scatter',
+    //                 data: {
+    //                     datasets: [{
+    //                         label: 'My Scatter Dataset',
+    //                         data: scatterData.map(item => ({ x: item.x, y: item.y })),
+    //                         backgroundColor: 'rgba(0, 123, 255, 0.5)'
+    //                     }]
+    //                 },
+    //                 options: {
+    //                     scales: {
+    //                         x: {
+    //                             beginAtZero: true
+    //                         },
+    //                         y: {
+    //                             beginAtZero: true
+    //                         }
+    //                     }
+    //                 }
+    //             });
+    //         })
+    //         .catch(error => {
+    //             console.error("An error occurred:", error);
+    //             // You can initialize the chart with empty or fallback data here if you want
+    //         });
+    // }
 }
