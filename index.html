@@ -8,6 +8,12 @@
     <script src="./dist/main.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script> 
+    <!-- Add Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+
+
 
     <title>F1 1988 Season</title>
   </head>
@@ -18,17 +24,18 @@
       <a href="./index.html">
       <img class="logo" src="https://1000logos.net/wp-content/uploads/2020/03/F1-Logo-1987.jpg">
       </a>
-      <h1 style="margin-left: 175px;" >1988 Season Analysis</h1>
+      <h1 style="margin-left: 50px;" >1988 Season Analysis</h1>
     </div>
     <div  id="content-container">
       <nav  id="race-nav">
         <!-- Races will be listed here -->
       </nav>
+      
       <main id="race-content">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Gerhard_Berger_1988_Canada.jpg/220px-Gerhard_Berger_1988_Canada.jpg">
         <!-- Race information will be displayed here -->
-        <canvas id="myRadarChart" width="400" height="200"></canvas>
-        <canvas id="myChart" width="400" height="200"></canvas>
+        <canvas id="myScatterChart" width="400" height="200"></canvas>
+
       </main>
     </div>
   </body>

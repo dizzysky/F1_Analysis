@@ -47,6 +47,14 @@ const constructorColors = {
     // etc.
 };
 
+const sampleData = [
+    { x: 1, y: 10 },
+    { x: 2, y: 15 },
+    { x: 3, y: 5 },
+    { x: 4, y: 30 },
+    { x: 5, y: 12 }
+];
+
 
 
 
@@ -56,7 +64,7 @@ export default class F1Season {
         this.races = races; // Store the races array
         this.initializeRaces();
         this.initializeSeasonStats();
-        this.initializeRadarChart();
+        this.initializeScatterPlot();  // Add this line here
     }
 
 
@@ -210,37 +218,44 @@ export default class F1Season {
     }//end initializeSeasonStats
 
 
-    initializeRadarChart() {
-        // Fetch additional data from Ergast API
-        fetch("http://ergast.com/api/f1/1988/constructors.json")
+    initializeScatterPlot() {
+        // Replace "your-real-api-url-here" with your actual API endpoint
+        fetch("your-real-api-url-here")
             .then(response => response.json())
-            .then(radarData => {  // <-- Renamed to radarData to avoid conflict
-                const ctx = document.getElementById("myRadarChart").getContext("2d");
-                
-                // Prepare your data and labels here
-                const labels = ["Metric 1", "Metric 2"]; // Replace these with actual metrics
-                const chartData = {  // <-- You can also rename this if you want
-                    labels: labels,
-                    datasets: [{
-                        label: 'My dataset',
-                        data: [65, 59], // Replace these with actual data
-                    }]
-                };
-    
+            .then(scatterData => {
+                // Assuming scatterData is an array of objects with x and y properties
+                const ctx = document.getElementById("myScatterChart").getContext("2d");
+        
                 new Chart(ctx, {
-                    type: 'radar',
-                    data: chartData,  // <-- Using chartData here
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'My Scatter Dataset',
+                            data: scatterData.map(item => ({ x: item.x, y: item.y })),
+                            backgroundColor: 'rgba(0, 123, 255, 0.5)'
+                        }]
+                    },
                     options: {
                         scales: {
-                            r: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
                                 beginAtZero: true
                             }
                         }
                     }
                 });
             })
-            .catch(error => console.error("An error occurred while fetching radar chart data:", error));
+            .catch(error => {
+                console.error("An error occurred:", error);
+                // You can initialize the chart with empty or fallback data here if you want
+            });
     }
+    
+    
+    
+    
     
 
 

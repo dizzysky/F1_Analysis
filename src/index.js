@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const races = data.MRData.RaceTable.Races; // Extract the races array
             const main = document.getElementById("main");
             new F1Season(main, races); // Create F1Season instance with the fetched races
+
         })
         .catch(error => console.error("An error occurred:", error));
 });

@@ -89,12 +89,10 @@ h2 {
   border-right: 15px solid black;
   border-bottom: 15px solid black;
   border-radius: 15px;
-  padding-right: 200px;
-  padding-bottom: 200px;
+  padding-left: 100px;
   flex-grow: 1;
   margin-right: 200px;
   margin-top: 50px;
-  padding: 20px;
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
 }
@@ -105,10 +103,12 @@ h2 {
 nav a {
   display: block;
   padding: 10px;
+  width: 200px; /* or whatever width you want */
   text-decoration: none;
   color: #000;
   border-bottom: 1px solid black;
   border-right: 1px solid black;
-  transform: skewX(-15deg); /* Adjust the angle to your preference */
+  transform: skewX(-15deg);
   border-radius: 5px;
+  text-align: center; /* to center align the text */
 }
