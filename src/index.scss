@@ -38,13 +38,60 @@ h1, h2 {
     display: flex;
 }
 
+// #race-nav {
+//     // border: 5px solid black;
+//     width: 250px;
+//     height: 100%;
+//     overflow: auto;
+//     margin: 40px 0 0 25px;
+//     margin-left: 120px;
+// }
+
+// // Nav links
+// nav a {
+//     border: 5px solid black;
+//     display: block;
+//     margin-top: 5px;
+//     padding: 10px;
+//     width: 200px;
+//     text-decoration: none;
+//     color: #000;
+//     border-bottom: 1px solid black;
+//     border-right: 1px solid black;
+//     border-radius: 5px;
+//     transform: skewX(-15deg);
+//     text-align: center;
+
+
+//     transition: border-bottom 0.3s ease-in-out; // New line
+// }
+
+
 #race-nav {
-    // border: 5px solid black;
+    /* Commented out the border for clarity, and kept the left margin only */
+    /* border: 5px solid black; */
     width: 250px;
     height: 100%;
     overflow: auto;
-    margin: 40px 0 0 25px;
-    margin-left: 120px;
+    margin: 40px 0 0 120px;  /* Updated left margin */
+}
+
+/* Nav links */
+nav a {
+    border: 5px solid black;
+    display: block;
+    margin-top: 5px;
+    padding: 10px;
+    padding-left: 20px;
+    width: 200px;  /* Assuming you've considered the overall width */
+    text-decoration: none;
+    color: #000;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 5px;
+    transform: skewX(-15deg);
+    text-align: center;
+    transition: border-bottom 0.3s ease-in-out;
 }
 
 // Race links
@@ -73,24 +120,6 @@ h1, h2 {
     &.active {
         font-weight: bold;
     }
-}
-
-// Nav links
-nav a {
-    display: block;
-    margin-top: 5px;
-    padding: 10px;
-    width: 200px;
-    text-decoration: none;
-    color: #000;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    border-radius: 5px;
-    transform: skewX(-15deg);
-    text-align: center;
-
-
-    transition: border-bottom 0.3s ease-in-out; // New line
 }
 
 .bold-border {
