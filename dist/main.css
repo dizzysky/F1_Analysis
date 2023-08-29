@@ -36,11 +36,10 @@ h1, h2 {
 }
 #content-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 #race-nav {
-  /* Commented out the border for clarity, and kept the left margin only */
-  /* border: 5px solid black; */
   width: 250px;
   height: 100%;
   overflow: auto;

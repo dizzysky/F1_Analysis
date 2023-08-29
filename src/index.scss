@@ -36,6 +36,7 @@ h1, h2 {
 // Content container
 #content-container {
     display: flex;
+    flex-wrap: wrap;
 }
 
 // #race-nav {
@@ -68,8 +69,6 @@ h1, h2 {
 
 
 #race-nav {
-    /* Commented out the border for clarity, and kept the left margin only */
-    /* border: 5px solid black; */
     width: 250px;
     height: 100%;
     overflow: auto;

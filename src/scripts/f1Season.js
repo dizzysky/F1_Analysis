@@ -131,14 +131,35 @@ export default class F1Season {
         const mainContent = document.querySelector('#race-content .fade-content');
         // Clear existing content
         mainContent.innerHTML = '';
+        const scatterData = await getScatterData('1988');
 
         //start fading out
         mainContent.classList.add('fade-out');
-
-
-        const scatterData = await getScatterData('1988');
+        
 
         setTimeout(() => {
+
+        const imageElement = document.createElement('img');
+        imageElement.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Gerhard_Berger_1988_Canada.jpg/220px-Gerhard_Berger_1988_Canada.jpg';  // Replace this
+        imageElement.alt = 'Description of the image';
+        imageElement.width = 300; // Optional
+        imageElement.height = 200; // Optional
+        mainContent.appendChild(imageElement);
+
+
+        // // Add the blurb to the right of the image and position it above it
+        // const blurbElement = document.createElement('p');
+        // blurbElement.innerHTML = `
+        // The 1988 Formula One season was one of the most exciting in history. Ayrton Senna won his first Drivers' Championship, narrowly beating his McLaren teammate Alain Prost. The two drivers were closely matched throughout the season, and there were many controversial moments, including a collision between them at the Japanese Grand Prix.
+
+        // The 1988 season was also the last season where turbocharged engines were allowed in Formula One. The McLaren-Honda MP4/4 was the dominant car of the year, and it won 15 of the 16 races.
+
+        // The image you are seeing is of Gerhard Berger, who finished third in the Drivers' Championship. He was driving for Ferrari in 1988, and he won two races that season.
+        // <br>
+        // `;
+        // mainContent.appendChild(blurbElement);
+
+            
     
             // Create a container for the chart
             const chartContainer = document.createElement('div');
@@ -192,11 +213,15 @@ export default class F1Season {
         const scatterCtx = scatterCanvas.getContext('2d');
 
         
+
+        
+
+
         new Chart(scatterCtx, {
             type: 'scatter',
             data: {
                 datasets: [{
-                    label: 'Average Lap Time vs Podium Wins',
+                    label: 'Races Participated vs Podium Finishes',
                     data: scatterData,
                     backgroundColor: 'rgba(0, 0, 255, 0.5)',
                     borderColor: 'rgba(0, 0, 0, 0.1)',
@@ -208,7 +233,8 @@ export default class F1Season {
             }
         });
 
-            
+        
+
 
 
 
