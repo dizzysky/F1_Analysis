@@ -2,7 +2,7 @@ import F1Season from "./scripts/f1Season";
 
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Hello world!");
-    fetch("https://ergast.com/api/f1/1988.json")
+    fetch("http://ergast.com/api/f1/1988.json")
         .then(response => response.json())
         .then(data => {
             const races = data.MRData.RaceTable.Races; // Extract the races array

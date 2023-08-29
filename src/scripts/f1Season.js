@@ -1,6 +1,4 @@
 import { circuitImages, driverHeadshots, podiums1988, constructorColors, countryFlags } from "./dataset";
-
-
 const fetchData = async (url) => {
     try {
         const response = await fetch(url);
@@ -42,7 +40,7 @@ export default class F1Season {
     }
 
     async fetchRaceDetails(index) {
-        const url = `https://ergast.com/api/f1/1988/${index + 1}/results.json`;
+        const url = `http://ergast.com/api/f1/1988/${index + 1}/results.json`;
         const data = await fetchData(url);
         return data?.MRData?.RaceTable?.Races[0] ?? null;
     }
@@ -53,13 +51,13 @@ export default class F1Season {
             const { raceName, Circuit } = race;
             const flagURL = countryFlags[Circuit.circuitId];
             const raceLink = createLinkElement(raceName, 'race-link', async (e) => {
-            e.preventDefault();
-            // Active link handling
-            document.querySelectorAll('.race-link').forEach((link) => link.classList.remove('active'));
-            raceLink.classList.add('active');
-    
-            const details = await this.fetchRaceDetails(index);
-            this.populateMainContent(details);
+                e.preventDefault();
+                // Active link handling
+                document.querySelectorAll('.race-link').forEach((link) => link.classList.remove('active'));
+                raceLink.classList.add('active');
+        
+                const details = await this.fetchRaceDetails(index);
+                this.populateMainContent(details);
             });
 
 
@@ -139,81 +137,85 @@ export default class F1Season {
 
         setTimeout(() => {
     
-        // Create a container for the chart
-        const chartContainer = document.createElement('div');
-        chartContainer.style.width = '350px'; // Set the width you want here
-        chartContainer.style.height = '200px'; // Set the height you want here
-        mainContent.appendChild(chartContainer); // Add the container to the main content area
-    
-        const canvas = chartContainer.appendChild(document.createElement('canvas'));
+            // Create a container for the chart
+            const chartContainer = document.createElement('div');
+            chartContainer.style.width = '350px'; // Set the width you want here
+            chartContainer.style.height = '200px'; // Set the height you want here
+            mainContent.appendChild(chartContainer); // Add the container to the main content area
+        
+            const canvas = chartContainer.appendChild(document.createElement('canvas'));
 
-        const podiumsData = podiums1988.map(item => item.podiums);
-        const constructorNames = podiums1988.map(item => item.constructor);
-        const backgroundColors = podiums1988.map(item => constructorColors[item.constructor]);
+            const podiumsData = podiums1988.map(item => item.podiums);
+            const constructorNames = podiums1988.map(item => item.constructor);
+            const backgroundColors = podiums1988.map(item => constructorColors[item.constructor]);
 
-    
-        const ctx = canvas.getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
+        
+            const ctx = canvas.getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: podiums1988.map(item => item.constructor),
+                    datasets: [{
+                        label: 'Podium Wins by Constructor',
+                        data: podiums1988.map(item => item.podiums),
+                        backgroundColor: backgroundColors, // Example color
+                        borderColor: 'rgba(0, 0, 0, 0.1)', // Example color
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Podium Wins by Constructor',
+                        fontSize: 20, // Adjust the font size as needed
+                        fontColor: '#000', // You can set the color if you want
+                        fontStyle: 'bold' // Makes the title bold
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false // Allow the chart to fit the container without maintaining its aspect ratio
+                }
+            });
+
+
+
+
+             // Scatter Plot
+        const scatterPlotContainer = document.createElement('div');
+        scatterPlotContainer.style.width = '350px';
+        scatterPlotContainer.style.height = '200px';
+        mainContent.appendChild(scatterPlotContainer);
+
+        const scatterCanvas = scatterPlotContainer.appendChild(document.createElement('canvas'));
+        const scatterCtx = scatterCanvas.getContext('2d');
+
+        const scatterData = [
+            { x: 100, y: 5 },
+            { x: 110, y: 10 },
+            // ... Replace with real fetched data ...
+        ];
+
+        new Chart(scatterCtx, {
+            type: 'scatter',
             data: {
-                labels: podiums1988.map(item => item.constructor),
                 datasets: [{
-                    label: 'Podium Wins by Constructor',
-                    data: podiums1988.map(item => item.podiums),
-                    backgroundColor: backgroundColors, // Example color
-                    borderColor: 'rgba(0, 0, 0, 0.1)', // Example color
+                    label: 'Average Lap Time vs Podium Wins',
+                    data: scatterData,
+                    backgroundColor: 'rgba(0, 0, 255, 0.5)',
+                    borderColor: 'rgba(0, 0, 0, 0.1)',
                     borderWidth: 1
                 }]
             },
             options: {
-                title: {
-                    display: true,
-                    text: 'Podium Wins by Constructor',
-                    fontSize: 20, // Adjust the font size as needed
-                    fontColor: '#000', // You can set the color if you want
-                    fontStyle: 'bold' // Makes the title bold
-                },
-                responsive: true,
-                maintainAspectRatio: false // Allow the chart to fit the container without maintaining its aspect ratio
+                // ... Your scatter plot configuration here ...
             }
         });
+
+            
+
+
+
+
         mainContent.classList.remove('fade-out');
     }, 500);
     }//end initializeSeasonStats
-
-
-    // initializeScatterPlot() {
-    //     // Replace "your-real-api-url-here" with your actual API endpoint
-    //     fetch("your-real-api-url-here")
-    //         .then(response => response.json())
-    //         .then(scatterData => {
-    //             // Assuming scatterData is an array of objects with x and y properties
-    //             const ctx = document.getElementById("myScatterChart").getContext("2d");
-        
-    //             new Chart(ctx, {
-    //                 type: 'scatter',
-    //                 data: {
-    //                     datasets: [{
-    //                         label: 'My Scatter Dataset',
-    //                         data: scatterData.map(item => ({ x: item.x, y: item.y })),
-    //                         backgroundColor: 'rgba(0, 123, 255, 0.5)'
-    //                     }]
-    //                 },
-    //                 options: {
-    //                     scales: {
-    //                         x: {
-    //                             beginAtZero: true
-    //                         },
-    //                         y: {
-    //                             beginAtZero: true
-    //                         }
-    //                     }
-    //                 }
-    //             });
-    //         })
-    //         .catch(error => {
-    //             console.error("An error occurred:", error);
-    //             // You can initialize the chart with empty or fallback data here if you want
-    //         });
-    // }
 }
