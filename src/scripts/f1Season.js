@@ -147,17 +147,17 @@ export default class F1Season {
         mainContent.appendChild(imageElement);
 
 
-        // // Add the blurb to the right of the image and position it above it
-        // const blurbElement = document.createElement('p');
-        // blurbElement.innerHTML = `
-        // The 1988 Formula One season was one of the most exciting in history. Ayrton Senna won his first Drivers' Championship, narrowly beating his McLaren teammate Alain Prost. The two drivers were closely matched throughout the season, and there were many controversial moments, including a collision between them at the Japanese Grand Prix.
+        // Add the blurb to the right of the image and position it above it
+        const blurbElement = document.createElement('p');
+        blurbElement.innerHTML = `
+        The 1988 Formula One season was one of the most exciting in history. Ayrton Senna won his first Drivers' Championship, narrowly beating his McLaren teammate Alain Prost. The two drivers were closely matched throughout the season, and there were many controversial moments, including a collision between them at the Japanese Grand Prix.
 
-        // The 1988 season was also the last season where turbocharged engines were allowed in Formula One. The McLaren-Honda MP4/4 was the dominant car of the year, and it won 15 of the 16 races.
+        The 1988 season was also the last season where turbocharged engines were allowed in Formula One. The McLaren-Honda MP4/4 was the dominant car of the year, and it won 15 of the 16 races.
 
-        // The image you are seeing is of Gerhard Berger, who finished third in the Drivers' Championship. He was driving for Ferrari in 1988, and he won two races that season.
-        // <br>
-        // `;
-        // mainContent.appendChild(blurbElement);
+        The image you are seeing is of Gerhard Berger, who finished third in the Drivers' Championship. He was driving for Ferrari in 1988, and he won two races that season.
+        <br>
+        `;
+        mainContent.appendChild(blurbElement);
 
             
     

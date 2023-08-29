@@ -35,8 +35,12 @@ h1, h2 {
   }
 }
 #content-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 250px auto;
+}
+
+#race-nav, #race-content {
+  flex-shrink: 0;
 }
 
 #race-nav {
@@ -44,6 +48,7 @@ h1, h2 {
   height: 100%;
   overflow: auto;
   margin: 40px 0 0 120px; /* Updated left margin */
+  min-width: 250px;
 }
 
 /* Nav links */
@@ -92,6 +97,7 @@ nav a {
 }
 
 #race-content {
+  min-width: calc(100% - 250px);
   position: relative;
   border-right: 10px solid black;
   border-bottom: 10px solid black;
