@@ -127,13 +127,16 @@ export default class F1Season {
 
     }
 
-    initializeSeasonStats() {
+    async initializeSeasonStats() {
         const mainContent = document.querySelector('#race-content .fade-content');
         // Clear existing content
         mainContent.innerHTML = '';
 
         //start fading out
         mainContent.classList.add('fade-out');
+
+
+        const scatterData = await getScatterData('1988');
 
         setTimeout(() => {
     
@@ -188,12 +191,7 @@ export default class F1Season {
         const scatterCanvas = scatterPlotContainer.appendChild(document.createElement('canvas'));
         const scatterCtx = scatterCanvas.getContext('2d');
 
-        const scatterData = [
-            { x: 100, y: 5 },
-            { x: 110, y: 10 },
-            // ... Replace with real fetched data ...
-        ];
-
+        
         new Chart(scatterCtx, {
             type: 'scatter',
             data: {
@@ -218,4 +216,38 @@ export default class F1Season {
         mainContent.classList.remove('fade-out');
     }, 500);
     }//end initializeSeasonStats
+}
+
+
+async function getScatterData(season) {
+    const url = `http://ergast.com/api/f1/${season}.json`;
+    const response = await fetchData(url);
+    const races = response.MRData.RaceTable.Races;
+
+    let driverData = {};
+
+    for (let race of races) {
+        const raceUrl = `http://ergast.com/api/f1/${season}/${race.round}/results.json`;
+        const raceResponse = await fetchData(raceUrl);
+        const results = raceResponse.MRData.RaceTable.Races[0].Results;
+
+        results.forEach((result) => {
+            const driverId = result.Driver.driverId;
+            if (!driverData[driverId]) {
+                driverData[driverId] = { races: 0, podiums: 0 };
+            }
+            driverData[driverId].races++;
+
+            if (parseInt(result.position) <= 3) {
+                driverData[driverId].podiums++;
+            }
+        });
+    }
+
+    const scatterData = Object.keys(driverData).map((driverId) => ({
+        x: driverData[driverId].races,
+        y: driverData[driverId].podiums
+    }));
+
+    return scatterData;
 }
