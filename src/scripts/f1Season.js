@@ -87,7 +87,7 @@ export default class F1Season {
     }
 
 
-   async populateMainContent(details) {
+    async populateMainContent(details) {
         const mainContent = document.querySelector('#race-content .fade-content');
         const circuitImageURL = circuitImages[details.Circuit.circuitId];
         let tableRowsHTML = ''; // Initialize the table rows HTML variable
@@ -153,13 +153,28 @@ export default class F1Season {
         <!-- <p>Precipitation: ${weatherData.precipitation}mm</p> -->
         <p>Precipitation: ${roundedPrecipitation}mm</p>
     </div>
+    `;
+
+    // Identify the winner's name from details.Results
+const winnerName = details.Results[0].Driver.familyName;
+
+// Get the winner's headshot URL from driverHeadshots
+const winnerHeadshotURL = driverHeadshots[winnerName];
+console.log("WINNER HEADSHOT: ", winnerHeadshotURL);
+
+// Add the winner's headshot to your HTML content
+mainContent.innerHTML += `
+    <div>
+        <h2 style="font-size: 2em">Winner: ${winnerName}</h2>
+        <img src="${winnerHeadshotURL}" width="100" alt="${winnerName}'s headshot">
+    </div>
 `;
-  
+
 
     mainContent.classList.remove('fade-out');
     ; }, 500);
 
-    }
+    }//end populate main content
 
     async initializeSeasonStats() {
         const mainContent = document.querySelector('#race-content .fade-content');
@@ -171,20 +186,6 @@ export default class F1Season {
         mainContent.innerHTML = '';
         const scatterData = await getScatterData('1988');
         const driverNationalities = await getDriverNationalities('1988');
-
-        // Generate random colors
-  function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-  const randomColors = Array.from({ length: Object.keys(driverNationalities).length }, () => getRandomColor());
-
-        
 
 
         spinner.style.display = 'none';

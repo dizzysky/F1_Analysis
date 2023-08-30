@@ -19,9 +19,9 @@ export const circuitImages = {
 }
 
 export const driverHeadshots = {
-    "prost": "https://cdn.images.autosport.com/f1greatestdrivers/mug/1955022400.jpg",
-    "berger": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGKdVutc1doaeJGomCW6sXtWArB_b_s9ClSYME48lBNM5FJdWk5NKn0C9zxKhswt_jwpo&usqp=CAU",
-    "senna": "https://s.wsj.net/public/resources/images/B3-DW970_CAPTAI_FR_20190503142818.jpg"
+    "Prost": "https://cdn.images.autosport.com/f1greatestdrivers/mug/1955022400.jpg",
+    "Berger": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGKdVutc1doaeJGomCW6sXtWArB_b_s9ClSYME48lBNM5FJdWk5NKn0C9zxKhswt_jwpo&usqp=CAU",
+    "Senna": "https://s.wsj.net/public/resources/images/B3-DW970_CAPTAI_FR_20190503142818.jpg"
 
 }
 
