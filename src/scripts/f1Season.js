@@ -156,17 +156,19 @@ export default class F1Season {
     `;
 
     // Identify the winner's name from details.Results
-const winnerName = details.Results[0].Driver.familyName;
+const winnerLastName = details.Results[0].Driver.familyName;
+const winnerFirstName = details.Results[0].Driver.givenName;
+const winnerFullName = `${winnerFirstName} ${winnerLastName}`;
 
 // Get the winner's headshot URL from driverHeadshots
-const winnerHeadshotURL = driverHeadshots[winnerName];
-console.log("WINNER HEADSHOT: ", winnerHeadshotURL);
+const winnerHeadshotURL = driverHeadshots[winnerLastName];
+// console.log("WINNER HEADSHOT: ", winnerHeadshotURL);
 
 // Add the winner's headshot to your HTML content
 mainContent.innerHTML += `
     <div>
-        <h2 style="font-size: 2em">Winner: ${winnerName}</h2>
-        <img src="${winnerHeadshotURL}" width="100" alt="${winnerName}'s headshot">
+        <h2 style="font-size: 2em">Winner: ${winnerFullName}</h2>
+        <img src="${winnerHeadshotURL}" width="100" alt="${winnerFullName}'s headshot">
     </div>
 `;
 
