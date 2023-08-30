@@ -328,24 +328,10 @@ new Chart(doughnutCtx, {
         // ... chart options
     }
 });
-
-        
-
-
-        
-
-
-
-        
-
-
-
-
-
         mainContent.classList.remove('fade-out');
     }, 500);
     }//end initializeSeasonStats
-}
+}//class end
 
 
 async function getScatterData(season) {
