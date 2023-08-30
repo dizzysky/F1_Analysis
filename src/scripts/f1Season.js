@@ -161,9 +161,15 @@ export default class F1Season {
 
     async initializeSeasonStats() {
         const mainContent = document.querySelector('#race-content .fade-content');
+        const spinner = document.getElementById('spinner');
+
+        spinner.style.display = 'block';
+
         // Clear existing content
         mainContent.innerHTML = '';
         const scatterData = await getScatterData('1988');
+
+        spinner.style.display = 'none';
 
         //start fading out
         mainContent.classList.add('fade-out');

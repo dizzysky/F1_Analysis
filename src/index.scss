@@ -39,34 +39,6 @@ h1, h2 {
    grid-template-columns: 250px auto;
 }
 
-// #race-nav {
-//     // border: 5px solid black;
-//     width: 250px;
-//     height: 100%;
-//     overflow: auto;
-//     margin: 40px 0 0 25px;
-//     margin-left: 120px;
-// }
-
-// // Nav links
-// nav a {
-//     border: 5px solid black;
-//     display: block;
-//     margin-top: 5px;
-//     padding: 10px;
-//     width: 200px;
-//     text-decoration: none;
-//     color: #000;
-//     border-bottom: 1px solid black;
-//     border-right: 1px solid black;
-//     border-radius: 5px;
-//     transform: skewX(-15deg);
-//     text-align: center;
-
-
-//     transition: border-bottom 0.3s ease-in-out; // New line
-// }
-
 #race-nav, #race-content {
     flex-shrink: 0;
 }
