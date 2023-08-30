@@ -139,12 +139,16 @@ export default class F1Season {
 
         setTimeout(() => {
 
+        const imageBlurbContainer = document.createElement('div');
+        imageBlurbContainer.style.display = 'flex';
+        mainContent.appendChild(imageBlurbContainer);
+
         const imageElement = document.createElement('img');
         imageElement.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Gerhard_Berger_1988_Canada.jpg/220px-Gerhard_Berger_1988_Canada.jpg';  // Replace this
         imageElement.alt = 'Description of the image';
         imageElement.width = 300; // Optional
         imageElement.height = 200; // Optional
-        mainContent.appendChild(imageElement);
+        imageBlurbContainer.appendChild(imageElement);
 
 
         // Add the blurb to the right of the image and position it above it
@@ -157,7 +161,7 @@ export default class F1Season {
         The image you are seeing is of Gerhard Berger, who finished third in the Drivers' Championship. He was driving for Ferrari in 1988, and he won two races that season.
         <br>
         `;
-        mainContent.appendChild(blurbElement);
+        imageBlurbContainer.appendChild(blurbElement);
 
             
     
@@ -229,7 +233,7 @@ export default class F1Season {
                 }]
             },
             options: {
-                // ... Your scatter plot configuration here ...
+                // ...scatter plot configuration here ...
             }
         });
 
