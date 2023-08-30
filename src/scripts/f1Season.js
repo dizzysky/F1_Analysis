@@ -85,10 +85,20 @@ export default class F1Season {
     }
 
 
-    populateMainContent(details) {
+   async populateMainContent(details) {
         const mainContent = document.querySelector('#race-content .fade-content');
         const circuitImageURL = circuitImages[details.Circuit.circuitId];
         let tableRowsHTML = ''; // Initialize the table rows HTML variable
+
+
+          //WEATHER
+    const latitude = details.Circuit.Location.lat;
+    const longitude = details.Circuit.Location.long;
+    const weatherData = await fetchWeatherData(latitude, longitude);
+    if(!weatherData) {
+        console.error("failed to fetch weather data");
+        return;
+    }
 
 
         mainContent.classList.add('fade-out');
@@ -122,6 +132,17 @@ export default class F1Season {
         </div>
     </div>
     `
+    
+    //WEATHER
+    mainContent.innerHTML += `
+    <div>
+        <h2>Weather Data</h2>
+        <p>Temperature: ${weatherData.temperature_2m}°C</p>
+        <p>Precipitation: ${weatherData.precipitation}mm</p>
+    </div>
+`;
+  
+
     mainContent.classList.remove('fade-out');
     ; }, 500);
 
@@ -291,3 +312,18 @@ async function getScatterData(season) {
 
     return scatterData;
 }
+
+const fetchWeatherData = async (latitude, longitude) => {
+    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=2023-08-11&end_date=2023-08-25&hourly=temperature_2m`;
+    
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;  // Return the fetched data.
+    } catch (error) {
+      console.error("An error occurred:", error);
+      return null;  // Return null in case of an error.
+    }
+  };
+  
+  
