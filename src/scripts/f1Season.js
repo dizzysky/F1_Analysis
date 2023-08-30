@@ -151,8 +151,8 @@ export default class F1Season {
         const imageElement = document.createElement('img');
         imageElement.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Gerhard_Berger_1988_Canada.jpg/220px-Gerhard_Berger_1988_Canada.jpg';  // Replace this
         imageElement.alt = 'Description of the image';
-        imageElement.width = 300; // Optional
-        imageElement.height = 200; // Optional
+        imageElement.width = 500; // Optional
+        imageElement.height = 300; // Optional
         imageElement.style.marginRight = '30px';
         imageBlurbContainer.appendChild(imageElement);
 
