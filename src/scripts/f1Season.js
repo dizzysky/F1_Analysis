@@ -118,31 +118,48 @@ export default class F1Season {
         setTimeout(() => {
             let tableRowsHTML = details.Results.slice(0,5).map(createRaceRowHTML).join('');
 
-        mainContent.innerHTML = `
-        <div style="display: flex; align-items: flex-start; font-family: Futura;">
-        <img src="${circuitImageURL}" width="300" alt="Track Configuration" style="margin-right: 75px;" /> <!-- Added margin-right -->
-        <div>
-            <h2 style="margin-top: 0;">${details.raceName}</h2>
-            <p>Circuit: ${details.Circuit.circuitName}</p>
-            <p>Location: ${details.Circuit.Location.locality}, ${details.Circuit.Location.country}</p>
-            <p>Date: ${details.date}</p>
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th>Position</th>
-                        <th>Driver</th>
-                        <th>Constructor</th>
-                        <th>Time</th>
-                        <th>Profile Links</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${tableRowsHTML} <!-- Append the table rows here -->
-                </tbody>
-            </table>
-        </div>
+
+                // Identify the winner's name from details.Results
+const winnerLastName = details.Results[0].Driver.familyName;
+const winnerFirstName = details.Results[0].Driver.givenName;
+const winnerFullName = `${winnerFirstName} ${winnerLastName}`;
+
+// Get the winner's headshot URL from driverHeadshots
+const winnerHeadshotURL = driverHeadshots[winnerLastName];
+
+
+mainContent.innerHTML = `
+<div style="display: flex; align-items: flex-start; font-family: Futura;">
+    <div style="flex: 1;">
+        <img src="${circuitImageURL}" width="300" alt="Track Configuration" style="margin-right: 75px;" />
     </div>
-    `
+    <div style="flex: 2;">
+        <h2 style="margin-top: 0;">${details.raceName}</h2>
+        <p>Circuit: ${details.Circuit.circuitName}</p>
+        <p>Location: ${details.Circuit.Location.locality}, ${details.Circuit.Location.country}</p>
+        <p>Date: ${details.date}</p>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Driver</th>
+                    <th>Constructor</th>
+                    <th>Time</th>
+                    <th>Profile Links</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${tableRowsHTML}
+            </tbody>
+        </table>
+    </div>
+    <div style="flex: 1; margin-left: -5px; text-align: center; margin-top:150px;"> <!-- Adjusted margin-left -->
+        <h2>Winner: ${winnerFullName}</h2>
+        <img src="${winnerHeadshotURL}" width="100" alt="${winnerFullName}'s headshot">
+    </div>
+</div>
+`;
+
     
     //WEATHER
     mainContent.innerHTML += `
@@ -155,22 +172,22 @@ export default class F1Season {
     </div>
     `;
 
-    // Identify the winner's name from details.Results
-const winnerLastName = details.Results[0].Driver.familyName;
-const winnerFirstName = details.Results[0].Driver.givenName;
-const winnerFullName = `${winnerFirstName} ${winnerLastName}`;
+//     // Identify the winner's name from details.Results
+// const winnerLastName = details.Results[0].Driver.familyName;
+// const winnerFirstName = details.Results[0].Driver.givenName;
+// const winnerFullName = `${winnerFirstName} ${winnerLastName}`;
 
-// Get the winner's headshot URL from driverHeadshots
-const winnerHeadshotURL = driverHeadshots[winnerLastName];
-// console.log("WINNER HEADSHOT: ", winnerHeadshotURL);
+// // Get the winner's headshot URL from driverHeadshots
+// const winnerHeadshotURL = driverHeadshots[winnerLastName];
+
 
 // Add the winner's headshot to your HTML content
-mainContent.innerHTML += `
-    <div>
-        <h2 style="font-size: 2em">Winner: ${winnerFullName}</h2>
-        <img src="${winnerHeadshotURL}" width="100" alt="${winnerFullName}'s headshot">
-    </div>
-`;
+// mainContent.innerHTML += `
+//     <div>
+//         <h2 style="font-size: 2em">Winner: ${winnerFullName}</h2>
+//         <img src="${winnerHeadshotURL}" width="100" alt="${winnerFullName}'s headshot">
+//     </div>
+// `;
 
 
     mainContent.classList.remove('fade-out');
