@@ -168,6 +168,7 @@ export default class F1Season {
         // Clear existing content
         mainContent.innerHTML = '';
         const scatterData = await getScatterData('1988');
+        const driverNationalities = await getDriverNationalities('1988');
 
         spinner.style.display = 'none';
 
@@ -285,6 +286,41 @@ export default class F1Season {
             }
         });
 
+
+
+
+        //Doughnut Chart 
+const doughnutChartContainer = document.createElement('div');
+doughnutChartContainer.style.width = '350px';
+doughnutChartContainer.style.height = '200px';
+chartsContainer.appendChild(doughnutChartContainer);
+
+const doughnutCanvas = doughnutChartContainer.appendChild(document.createElement('canvas'));
+const doughnutCtx = doughnutCanvas.getContext('2d');
+
+new Chart(doughnutCtx, {
+    type: 'doughnut',
+    data: {
+        labels: Object.keys(driverNationalities),  // Nationalities from the object
+        datasets: [{
+            data: Object.values(driverNationalities),  // Number of drivers per nationality
+            backgroundColor: [/* Array of colors here */],
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        // ... chart options
+    }
+});
+
+        
+
+
+        
+
+
+
         
 
 
@@ -341,3 +377,28 @@ const fetchWeatherData = async (latitude, longitude) => {
       console.error("An error occurred:", error);
     }
 };
+
+
+
+async function getDriverNationalities(season) {
+    const nationalities = {};
+    
+    // Fetch the data from the Ergast API
+    const response = await fetch(`http://ergast.com/api/f1/${season}/drivers.json`);
+    const data = await response.json();
+    
+    // Loop through the list of drivers
+    for (const driver of data.MRData.DriverTable.Drivers) {
+      const nationality = driver.nationality;
+      
+      // If this nationality is already in the object, increment the count
+      if (nationalities.hasOwnProperty(nationality)) {
+        nationalities[nationality]++;
+      } else {
+        // Otherwise, add this nationality to the object with a count of 1
+        nationalities[nationality] = 1;
+      }
+    }
+    
+    return nationalities;
+  }
