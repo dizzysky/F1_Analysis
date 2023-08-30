@@ -1,49 +1,43 @@
+# F1 Race Dashboard
 
-Sample JS Project Proposal: F1 Season Visualization
-Background
+## Description
 
-Formula 1 racing is a globally recognized motorsport that attracts millions of fans. Each season consists of multiple races on various tracks, with different weather conditions, car marques, and race results. This project aims to provide an interactive visualization of an F1 season using vanilla DOM manipulation and canvas.
-Functionality & MVPs
+This project is a web-based dashboard that provides comprehensive information on the 1988 F1 season. It includes race details, weather conditions, and driver profiles, among other features.
 
-With this F1 Season Visualization, users will be able to:
+## Features
 
-    Select Different Seasons and Races: View different seasons, tracks, and race results.
-    Interactive Track Visualization: Explore the selected track layout, with features like zooming and panning.
-    View Weather and Track Conditions: Get real-time weather information and track conditions using API data.
-    Explore Car Marques and Race Results: Access detailed information about different car marques, race results, driver standings, etc.
+- **Race Details**: Provides information about the race, including race name, circuit details, and location.
+  
+- **Weather Data**: Gives real-time weather information at the circuit location, including average temperature and precipitation.
 
-In addition, this project will include:
+- **Driver Profiles**: Displays headshots and details of the race winner.
 
-    An About Modal: Describing the background of F1 racing, the rules, and how to interact with the visualization.
-    A Production README.
+## Technologies Used
 
-Wireframes
+- HTML
+- CSS
+- JavaScript
+- RESTful APIs for fetching F1 and weather data
 
+## Setup
 
+1. Clone this repository.
 
+    ```bash
+    git clone https://github.com/yourusername/F1RaceDashboard.git
+    ```
 
+2. Navigate into the project folder.
 
-    Nav Links: Include links to this project's GitHub repo, LinkedIn, and an About modal.
-    Game Controls: Include controls to select different races, tracks, or seasons, and display weather, race results, etc.
-    Interactive Elements: Allow users to click on different parts of the visualization for more details.
+    ```bash
+    cd F1RaceDashboard
+    ```
 
-Technologies, Libraries, APIs
+3. Open `index.html` in your preferred browser or start a local server to view the project.
 
-This project will be implemented with the following technologies:
+## Code Snippets
 
-    The Canvas API: To render the track visualization.
-    Vanilla DOM Manipulation: To handle interactivity and display data.
-    Weather and Other APIs: To fetch real-time weather data and other race-related information.
-    Webpack and Babel: To bundle and transpile the source JavaScript code.
-    npm: To manage project dependencies.
+To fetch weather data:
 
-Implementation Timeline
-
-NB:
-
-    Friday Afternoon & Weekend: Set up the project, including getting webpack up and running. Create the basic layout and canvas elements. Start designing the track visualization.
-    Monday: Dedicate this day to implementing track visualization and adding interactivity to the canvas. Experiment with APIs to fetch weather and other data.
-    Tuesday: Focus on integrating fetched data and displaying it within the UI. Implement controls to select different seasons, races, and tracks.
-    Wednesday: Finish implementing user controls and focus on styling, as well as implementing additional features like car marque details and race results.
-    Thursday Morning: Deploy to GitHub pages. If time allows, rewrite this proposal as a production README.
-
+```javascript
+const weatherData = await fetchWeatherData(latitude, longitude);
