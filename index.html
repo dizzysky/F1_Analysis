@@ -9,11 +9,24 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc.1/dist/chartjs-plugin-datalabels.min.js"></script>
 
     <script src="./dist/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="src/jquery.box2d.min.js"></script>
 
     <link rel="icon" type="image/gif" href="https://preview.redd.it/9on7mkilfz091.gif?width=200&auto=webp&s=5b6d23f5f8e158287682e3cdf77fefa85973d8e5">
     <title>F1 1988 Season</title>
   </head>
   <body>
+    <div id="social-links">
+      <a href="https://github.com/your_username" target="_blank">
+        <img src="https://img.icons8.com/nolan/64/github.png" alt="GitHub"/>
+      </a>
+      <a href="https://linkedin.com/in/your_username" target="_blank">
+        <img src="https://img.icons8.com/nolan/64/linkedin.png" alt="LinkedIn"/>
+      </a>
+    </div>
+    
     <div id="header">
       <a href="./index.html">
       <img class="logo" src="https://1000logos.net/wp-content/uploads/2020/03/F1-Logo-1987.jpg">
@@ -24,15 +37,6 @@
       <nav  id="race-nav">
         <!-- Races will be listed here -->
       </nav>
-      <!-- <main id="race-content">
-        <div class="fade-content">
-        {-- Race information will be displayed here --}
-          <div id="spinner" style="display:none;">
-            <img src="https://cdn.dribbble.com/users/778626/screenshots/4368760/tire.gif" alt="Loading...">
-          </div>
-      
-        </div>
-      </main> -->
       <main id="race-content">
         <div id="spinner" style="display:none;">
           <img src="https://cdn.dribbble.com/users/778626/screenshots/4368760/tire.gif" alt="Loading...">
@@ -44,7 +48,41 @@
       
     </div> 
     <div id="hidden-image-container">
-      <img class="cheeky" src="https://preview.redd.it/9on7mkilfz091.gif?width=200&auto=webp&s=5b6d23f5f8e158287682e3cdf77fefa85973d8e5" alt="Hidden surprise" />
+      <img class="cheeky" id="cheekyImage" src="https://preview.redd.it/9on7mkilfz091.gif?width=200&auto=webp&s=5b6d23f5f8e158287682e3cdf77fefa85973d8e5" alt="Hidden surprise" />
     </div>
+
+    <div id="ground"></div>
+
+
+
+    <script>
+      $('#cheekyImage').click(function(){
+         // Change the a tags to absolute positioning so they can move freely
+  $('#race-nav a').css('position', 'absolute');
+
+// Apply the physics
+$("main, h1, h2, div, #race-nav a").addClass('active').box2d({
+  'y-velocity': -12.8,
+  'x-velocity': -0.20,
+  'debug': false
+});
+
+$('#race-content > *').each(function() {
+    $(this).css('position', 'absolute');
+    $(this).box2d({
+      'y-velocity': 9.8,
+      'x-velocity': -0.05,
+      'debug': false
+    });
+  });
+
+
+  //        // Adding ground (the specifics here depend on your plugin)
+  // $('#ground').box2d({
+  //   'type': 'static', // this makes it a static body (won't move)
+  // });
+      });
+    </script>
+
   </body>
 </html>

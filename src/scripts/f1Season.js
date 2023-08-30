@@ -172,23 +172,6 @@ mainContent.innerHTML = `
     </div>
     `;
 
-//     // Identify the winner's name from details.Results
-// const winnerLastName = details.Results[0].Driver.familyName;
-// const winnerFirstName = details.Results[0].Driver.givenName;
-// const winnerFullName = `${winnerFirstName} ${winnerLastName}`;
-
-// // Get the winner's headshot URL from driverHeadshots
-// const winnerHeadshotURL = driverHeadshots[winnerLastName];
-
-
-// Add the winner's headshot to your HTML content
-// mainContent.innerHTML += `
-//     <div>
-//         <h2 style="font-size: 2em">Winner: ${winnerFullName}</h2>
-//         <img src="${winnerHeadshotURL}" width="100" alt="${winnerFullName}'s headshot">
-//     </div>
-// `;
-
 
     mainContent.classList.remove('fade-out');
     ; }, 500);
@@ -474,4 +457,4 @@ async function getDriverNationalities(season) {
     }
     
     return nationalities;
-  }
+}
