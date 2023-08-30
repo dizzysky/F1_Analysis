@@ -170,6 +170,21 @@ export default class F1Season {
         const scatterData = await getScatterData('1988');
         const driverNationalities = await getDriverNationalities('1988');
 
+        // Generate random colors
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  const randomColors = Array.from({ length: Object.keys(driverNationalities).length }, () => getRandomColor());
+
+        
+
+
         spinner.style.display = 'none';
 
         //start fading out
@@ -304,7 +319,7 @@ new Chart(doughnutCtx, {
         labels: Object.keys(driverNationalities),  // Nationalities from the object
         datasets: [{
             data: Object.values(driverNationalities),  // Number of drivers per nationality
-            backgroundColor: [/* Array of colors here */],
+            backgroundColor: randomColors,
             borderColor: 'rgba(0, 0, 0, 0.1)',
             borderWidth: 1
         }]
