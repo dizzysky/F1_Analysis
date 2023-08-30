@@ -95,6 +95,15 @@ export default class F1Season {
     const latitude = details.Circuit.Location.lat;
     const longitude = details.Circuit.Location.long;
     const weatherData = await fetchWeatherData(latitude, longitude);
+    const averageTemperature = weatherData.hourly.temperature_2m.reduce((acc, val) => acc + val, 0) / weatherData.hourly.temperature_2m.length;
+    const averagePrecipitation = weatherData.hourly.precipitation.reduce((acc, val) => acc + val, 0) / weatherData.hourly.precipitation.length;
+    const roundedTemperature = parseFloat(averageTemperature).toFixed(2);
+    const roundedPrecipitation = parseFloat(averagePrecipitation).toFixed(2);
+
+
+    console.log('Full Weather Data:', weatherData);
+
+    console.log(weatherData);
     if(!weatherData) {
         console.error("failed to fetch weather data");
         return;
@@ -136,9 +145,11 @@ export default class F1Season {
     //WEATHER
     mainContent.innerHTML += `
     <div>
-        <h2>Weather Data</h2>
-        <p>Temperature: ${weatherData.temperature_2m}°C</p>
-        <p>Precipitation: ${weatherData.precipitation}mm</p>
+        <h2 style="font-size: 2em;">Weather Data</h2>
+        <p>Temperature: ${roundedTemperature}°C</p>
+        <!-- <p>Temperature: ${weatherData.temperature_2m}°C</p> -->
+        <!-- <p>Precipitation: ${weatherData.precipitation}mm</p> -->
+        <p>Precipitation: ${roundedPrecipitation}mm</p>
     </div>
 `;
   
@@ -314,16 +325,13 @@ async function getScatterData(season) {
 }
 
 const fetchWeatherData = async (latitude, longitude) => {
-    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=2023-08-11&end_date=2023-08-25&hourly=temperature_2m`;
+    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=2023-08-11&end_date=2023-08-25&hourly=temperature_2m,precipitation`;
     
     try {
       const response = await fetch(url);
       const data = await response.json();
-      return data;  // Return the fetched data.
+      return data;
     } catch (error) {
       console.error("An error occurred:", error);
-      return null;  // Return null in case of an error.
     }
-  };
-  
-  
+};
