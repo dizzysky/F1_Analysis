@@ -1,4 +1,5 @@
 import { circuitImages, driverHeadshots, podiums1988, constructorColors, countryFlags } from "./dataset";
+
 const fetchData = async (url) => {
     try {
         const response = await fetch(url);
@@ -38,6 +39,7 @@ export default class F1Season {
         this.initializeSeasonStats();
         // this.initializeScatterPlot();  // Add this line here
     }
+    
 
     async fetchRaceDetails(index) {
         const url = `http://ergast.com/api/f1/1988/${index + 1}/results.json`;
@@ -298,10 +300,51 @@ export default class F1Season {
             },
             options: {
                 // ...scatter plot configuration here ...
+                // plugins: {
+                //     datalabels: {
+                //         // display: false
+                //     }
+                // }
             }
         });
 
 
+        const nationalityColors = {
+            'Italian': '#008C45', // Green
+            'French': '#0033cc',  // Blue
+            'British': '#012169', // Red
+            'Spanish': '#ff9933', // Orange
+            'Argentine': '#6CACE4',
+            'Belgian': '#FFCD00',
+            'Swedish' : '#006AA7',
+            'Brazilian' : '#009739',
+            'Austrian' : '#EF3340',
+            'American' : "#B31942"
+
+
+
+            // Add other countries and colors here
+        };
+
+        const flagEmojis = {
+            'Italian': '🇮🇹',
+            'French': '🇫🇷',
+            'British': '🇬🇧',
+            'Spanish': '🇪🇸',
+            'Austrian': '🇦🇹',
+            'Belgian' : '🇧🇪',
+            'American' : '🇺🇸', 
+            'Brazilian' : '🇧🇷',
+            'Swedish' : '🇸🇪', 
+            'Argentine' : '🇦🇷',
+            'Japanese' : '🇯🇵'
+        }
+        
+
+
+        console.log('Driver Nationalities:', driverNationalities);
+console.log('Nationality Colors:', nationalityColors);
+console.log('Flag Emojis:', flagEmojis);
 
 
         //Doughnut Chart 
@@ -319,13 +362,22 @@ new Chart(doughnutCtx, {
         labels: Object.keys(driverNationalities),  // Nationalities from the object
         datasets: [{
             data: Object.values(driverNationalities),  // Number of drivers per nationality
-            backgroundColor: randomColors,
+            backgroundColor: Object.keys(driverNationalities).map(nat => nationalityColors[nat] || '#FFFFFF'), 
             borderColor: 'rgba(0, 0, 0, 0.1)',
             borderWidth: 1
         }]
     },
     options: {
-        // ... chart options
+        plugins: {
+            datalabels: {
+                formatter: (value, ctx) => {
+                    const label = ctx.chart.data.labels[ctx.dataIndex];
+                    return flagEmojis[label] || label;
+                },
+                color: '#fff',
+            }
+        },
+        // ...other chart options
     }
 });
         mainContent.classList.remove('fade-out');
