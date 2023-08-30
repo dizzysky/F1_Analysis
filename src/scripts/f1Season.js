@@ -141,13 +141,19 @@ export default class F1Season {
 
         const imageBlurbContainer = document.createElement('div');
         imageBlurbContainer.style.display = 'flex';
+        imageBlurbContainer.style.marginBottom = '50px';
         mainContent.appendChild(imageBlurbContainer);
+
+
+
+        //Image Element
 
         const imageElement = document.createElement('img');
         imageElement.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Gerhard_Berger_1988_Canada.jpg/220px-Gerhard_Berger_1988_Canada.jpg';  // Replace this
         imageElement.alt = 'Description of the image';
         imageElement.width = 300; // Optional
         imageElement.height = 200; // Optional
+        imageElement.style.marginRight = '30px';
         imageBlurbContainer.appendChild(imageElement);
 
 
@@ -162,14 +168,18 @@ export default class F1Season {
         <br>
         `;
         imageBlurbContainer.appendChild(blurbElement);
-
-            
+        
+        //container for both charts
+        const chartsContainer = document.createElement('div');
+        chartsContainer.style.display = 'flex';
+        mainContent.appendChild(chartsContainer);
     
-            // Create a container for the chart
+            // Create a container for the FIRST chart
             const chartContainer = document.createElement('div');
             chartContainer.style.width = '350px'; // Set the width you want here
             chartContainer.style.height = '200px'; // Set the height you want here
-            mainContent.appendChild(chartContainer); // Add the container to the main content area
+            chartContainer.style.marginRight = '50px';
+            chartsContainer.appendChild(chartContainer); // Add the container to the main content area
         
             const canvas = chartContainer.appendChild(document.createElement('canvas'));
 
@@ -187,7 +197,7 @@ export default class F1Season {
                         label: 'Podium Wins by Constructor',
                         data: podiums1988.map(item => item.podiums),
                         backgroundColor: backgroundColors, // Example color
-                        borderColor: 'rgba(0, 0, 0, 0.1)', // Example color
+                        borderColor: 'rgba(0, 0, 0, 0.1)', // Example color 
                         borderWidth: 1
                     }]
                 },
@@ -211,7 +221,7 @@ export default class F1Season {
         const scatterPlotContainer = document.createElement('div');
         scatterPlotContainer.style.width = '350px';
         scatterPlotContainer.style.height = '200px';
-        mainContent.appendChild(scatterPlotContainer);
+        chartsContainer.appendChild(scatterPlotContainer);
 
         const scatterCanvas = scatterPlotContainer.appendChild(document.createElement('canvas'));
         const scatterCtx = scatterCanvas.getContext('2d');
