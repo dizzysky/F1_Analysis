@@ -44,7 +44,6 @@ export default class F1Season {
         this.races = races; // Store the races array
         this.initializeRaces();
         this.initializeSeasonStats();
-        // this.initializeScatterPlot();  // Add this line here
     }
 
     async fetchRaceDetails(index) {
