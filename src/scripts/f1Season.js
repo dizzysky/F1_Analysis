@@ -282,9 +282,9 @@ export default class F1Season {
                     title: {
                         display: true,
                         text: "Podium Wins by Constructor",
-                        fontSize: 20, // Adjust the font size as needed
-                        fontColor: "#000", // You can set the color if you want
-                        fontStyle: "bold", // Makes the title bold
+                        fontSize: 20,
+                        fontColor: "#000",
+                        fontStyle: "bold",
                     },
                     responsive: true,
                     maintainAspectRatio: false, // Allow the chart to fit the container without maintaining its aspect ratio
