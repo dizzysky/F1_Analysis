@@ -315,14 +315,7 @@ export default class F1Season {
                         },
                     ],
                 },
-                options: {
-                    // ...scatter plot configuration here ...
-                    // plugins: {
-                    //     datalabels: {
-                    //         // display: false
-                    //     }
-                    // }
-                },
+                options: {},
             });
 
             const nationalityColors = {
