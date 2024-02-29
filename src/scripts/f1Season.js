@@ -319,18 +319,16 @@ export default class F1Season {
             });
 
             const nationalityColors = {
-                Italian: "#008C45", // Green
-                French: "#0033cc", // Blue
-                British: "#012169", // Red
-                Spanish: "#ff9933", // Orange
+                Italian: "#008C45",
+                French: "#0033cc",
+                British: "#012169",
+                Spanish: "#ff9933",
                 Argentine: "#6CACE4",
                 Belgian: "#FFCD00",
                 Swedish: "#006AA7",
                 Brazilian: "#009739",
                 Austrian: "#EF3340",
                 American: "#B31942",
-
-                // Add other countries and colors here
             };
 
             const flagEmojis = {
