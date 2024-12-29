@@ -6,15 +6,22 @@ import {
     countryFlags,
 } from "./dataset";
 
-const fetchData = async (url) => {
-    try {
-        const response = await fetch(url);
-        return await response.json();
-    } catch (error) {
-        console.error("An error occurred:", error);
-        return null;
-    }
-};
+import {
+    fetchRaceDetails,
+    fetchWeatherData,
+    getDriverNationalities,
+    getScatterData,
+} from "./dataHandling.js";
+
+// const fetchData = async (url) => {
+//     try {
+//         const response = await fetch(url);
+//         return await response.json();
+//     } catch (error) {
+//         console.error("An error occurred:", error);
+//         return null;
+//     }
+// };
 
 const createLinkElement = (text, className, clickHandler) => {
     const link = document.createElement("a");
@@ -46,11 +53,11 @@ export default class F1Season {
         this.initializeSeasonStats();
     }
 
-    async fetchRaceDetails(index) {
-        const url = `https://ergast.com/api/f1/1988/${index + 1}/results.json`;
-        const data = await fetchData(url);
-        return data?.MRData?.RaceTable?.Races[0] ?? null;
-    }
+    // async fetchRaceDetails(index) {
+    //     const url = `https://ergast.com/api/f1/1988/${index + 1}/results.json`;
+    //     const data = await fetchData(url);
+    //     return data?.MRData?.RaceTable?.Races[0] ?? null;
+    // }
 
     initializeRaces() {
         const raceNav = document.getElementById("race-nav");
@@ -394,72 +401,72 @@ export default class F1Season {
     } //end initializeSeasonStats
 } //class end
 
-async function getScatterData(season) {
-    const url = `https://ergast.com/api/f1/${season}.json`;
-    const response = await fetchData(url);
-    const races = response.MRData.RaceTable.Races;
+// async function getScatterData(season) {
+//     const url = `https://ergast.com/api/f1/${season}.json`;
+//     const response = await fetchData(url);
+//     const races = response.MRData.RaceTable.Races;
 
-    let driverData = {};
+//     let driverData = {};
 
-    for (let race of races) {
-        const raceUrl = `https://ergast.com/api/f1/${season}/${race.round}/results.json`;
-        const raceResponse = await fetchData(raceUrl);
-        const results = raceResponse.MRData.RaceTable.Races[0].Results;
+//     for (let race of races) {
+//         const raceUrl = `https://ergast.com/api/f1/${season}/${race.round}/results.json`;
+//         const raceResponse = await fetchData(raceUrl);
+//         const results = raceResponse.MRData.RaceTable.Races[0].Results;
 
-        results.forEach((result) => {
-            const driverId = result.Driver.driverId;
-            if (!driverData[driverId]) {
-                driverData[driverId] = { races: 0, podiums: 0 };
-            }
-            driverData[driverId].races++;
+//         results.forEach((result) => {
+//             const driverId = result.Driver.driverId;
+//             if (!driverData[driverId]) {
+//                 driverData[driverId] = { races: 0, podiums: 0 };
+//             }
+//             driverData[driverId].races++;
 
-            if (parseInt(result.position) <= 3) {
-                driverData[driverId].podiums++;
-            }
-        });
-    }
+//             if (parseInt(result.position) <= 3) {
+//                 driverData[driverId].podiums++;
+//             }
+//         });
+//     }
 
-    const scatterData = Object.keys(driverData).map((driverId) => ({
-        x: driverData[driverId].races,
-        y: driverData[driverId].podiums,
-    }));
+//     const scatterData = Object.keys(driverData).map((driverId) => ({
+//         x: driverData[driverId].races,
+//         y: driverData[driverId].podiums,
+//     }));
 
-    return scatterData;
-}
+//     return scatterData;
+// }
 
-const fetchWeatherData = async (latitude, longitude) => {
-    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=2023-08-11&end_date=2023-08-25&hourly=temperature_2m,precipitation`;
+// const fetchWeatherData = async (latitude, longitude) => {
+//     const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=2023-08-11&end_date=2023-08-25&hourly=temperature_2m,precipitation`;
 
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error("An error occurred:", error);
-    }
-};
+//     try {
+//         const response = await fetch(url);
+//         const data = await response.json();
+//         return data;
+//     } catch (error) {
+//         console.error("An error occurred:", error);
+//     }
+// };
 
-async function getDriverNationalities(season) {
-    const nationalities = {};
+// async function getDriverNationalities(season) {
+//     const nationalities = {};
 
-    // Fetch the data from the Ergast API
-    const response = await fetch(
-        `https://ergast.com/api/f1/${season}/drivers.json`
-    );
-    const data = await response.json();
+//     // Fetch the data from the Ergast API
+//     const response = await fetch(
+//         `https://ergast.com/api/f1/${season}/drivers.json`
+//     );
+//     const data = await response.json();
 
-    // Loop through the list of drivers
-    for (const driver of data.MRData.DriverTable.Drivers) {
-        const nationality = driver.nationality;
+//     // Loop through the list of drivers
+//     for (const driver of data.MRData.DriverTable.Drivers) {
+//         const nationality = driver.nationality;
 
-        // If this nationality is already in the object, increment the count
-        if (nationalities.hasOwnProperty(nationality)) {
-            nationalities[nationality]++;
-        } else {
-            // Otherwise, add this nationality to the object with a count of 1
-            nationalities[nationality] = 1;
-        }
-    }
+//         // If this nationality is already in the object, increment the count
+//         if (nationalities.hasOwnProperty(nationality)) {
+//             nationalities[nationality]++;
+//         } else {
+//             // Otherwise, add this nationality to the object with a count of 1
+//             nationalities[nationality] = 1;
+//         }
+//     }
 
-    return nationalities;
-}
+//     return nationalities;
+// }
